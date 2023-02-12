@@ -1,0 +1,25 @@
+.popup__save-button-text {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  margin: 0 auto;
+  color: #ffffff;
+  padding-top: 14px;
+  padding-bottom: 18px;
+}
+
+@media screen and (max-width: 440px) {
+  .popup__save-button-text {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #ffffff;
+    padding: 14px 0 14px 0;
+  }
+}

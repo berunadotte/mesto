@@ -9,4 +9,8 @@
   padding-top: 25px;
   padding-bottom: 32px;
   padding-left: 21px;
+  max-width: 208px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

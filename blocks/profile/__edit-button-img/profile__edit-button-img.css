@@ -1,5 +1,13 @@
 .profile__edit-button-img {
   background-color: #000;
-display: block;
-padding-left: 18px;
+  display: block;
+  padding-left: 18px;
+}
+
+@media screen and (max-width: 600px) {
+  .profile__edit-button-img {
+    padding-left: 10px;
+    width: 18px;
+    height: 18px;
+  }
 }

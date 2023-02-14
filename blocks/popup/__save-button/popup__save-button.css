@@ -5,6 +5,15 @@
   border-radius: 2px;
   margin: 0 auto;
   padding: 0;
+  color: #ffffff;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  margin: 0 auto;
+
 }
 
 .popup__save-button:hover {

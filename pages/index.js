@@ -1,7 +1,10 @@
 let editProfileButton = document.querySelector('.profile__edit-button')
-let closeEditButton = document.querySelector('.popup__close-button') 
+let closeEditButton = document.querySelector('.popup__close-button')
 let likeButton = document.querySelector('.card__like-button')
 let popupWindow = document.querySelector('.popup')
+let formElement = document.querySelector('.popup__form')
+let nameInput = document.querySelector('.popup__name')
+let jobInput = document.querySelector('.popup__job')
 
 function openEditProfile() {
   popupWindow.setAttribute('class', 'popup popup_opened')
@@ -14,38 +17,19 @@ function closeEditProfile() {
 editProfileButton.addEventListener('click', openEditProfile)
 closeEditButton.addEventListener('click', closeEditProfile)
 
+function handleFormSubmit(evt) {
+  evt.preventDefault()
 
-let formElement = document.querySelector('.popup__form')
-let nameInput = document.querySelector('.popup__name')
-let jobInput = document.querySelector('.popup__job')
+  nameValue = nameInput.value
+  jobValue = jobInput.value
 
+  let profileName = document.querySelector('.profile__title')
+  let profileJob = document.querySelector('.profile__subtitle')
 
-function handleFormSubmit (evt) {
-    evt.preventDefault();
+  profileName.textContent = nameValue
+  profileJob.textContent = jobValue
 
-    nameValue = nameInput.getAttribute('value')
-    jobValue = jobInput.getAttribute('value')
-
-    title = document.querySelector('.profile__title')
-    subtitle = document.querySelector('.profile__subtitle')
-
-    // title.textContent=nameValue
-    // subtitle.textContent = 'huy'
-
-    console.log(nameValue)
-    console.log(jobValue)
-
-
-    // closeEditProfile()
-
-
-    // Получите значение полей jobInput и nameInput из свойства value
-
-    // Выберите элементы, куда должны быть вставлены значения полей
-
-    // Вставьте новые значения с помощью textContent
+  closeEditProfile()
 }
 
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', handleFormSubmit);
+formElement.addEventListener('submit', handleFormSubmit)

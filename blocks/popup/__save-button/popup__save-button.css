@@ -11,7 +11,10 @@
   font-size: 18px;
   line-height: 22px;
   text-align: center;
-  margin: 0 auto;
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 37px;
   cursor: pointer;
 }
 

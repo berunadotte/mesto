@@ -1,10 +1,9 @@
-.popup__job {
+.popup__input {
   width: 358px;
   height: 27px;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding: 0;
-  margin: 30px 0 48px 0;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
@@ -13,8 +12,21 @@
   color: #000000;
 }
 
+.popup__input::placeholder {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+
+.popup__input:nth-child(2) {
+  margin: 30px 0 48px 0;
+}
+
 @media screen and (max-width: 600px) {
-  .popup__job {
+  .popup__input {
     width: 238px;
     height: 27px;
   }

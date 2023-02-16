@@ -11,7 +11,6 @@
 
     <header class="header">
       <img src="images/header_logo.svg" alt="Место Россия" class="header__logo">
-      <div class="header__line"></div>
     </header>
 
     <main class="main">
@@ -20,13 +19,11 @@
         <img src="images/avatar_photo.png" alt="аватарка пользователя" class="profile__avatar">
           <div class="profile__info">
            <h1 class="profile__title">Жак-Ив Кусто</h1>
-           <button class="profile__edit-button">
-              <img src="images/profile__edit-button.svg" alt="кнопка редактирования" class="profile__edit-button-img">
-           </button>
+           <button type="button" class="profile__edit-button" aria-label="кнопка редактирования"></button>
            <p class="profile__subtitle">Исследователь океана</p>
          </div>
         
-        <button class="profile__add-button"> <img src="images/add_button_image.svg" class="profile__add-button-img" alt="Кнопка добавить"></button>
+        <button type="button" class="profile__add-button"></button>
       </section>
 
       <section class="cards" aria-label="Секция с карточками">
@@ -34,8 +31,8 @@
           <li class="card">
             <img src="images/photo_karachaevsk.png" alt="Фото монастыря г. Карачаевск" class="card__image">
             <div class="card__container">
-              <p class="card__label">Карачаевск</p>
-              <button class="card__like-button">
+              <h2 class="card__label">Карачаевск</h2>
+              <button type="button" class="card__like-button">
                 <img src="images/like_button.svg" alt="лайк" class="card__like">
               </button>
             </div>
@@ -43,8 +40,8 @@
           <li class="card">
             <img src="images/photo_elbrus.png" alt="Фото горы Эльбрус" class="card__image">
             <div class="card__container">
-              <p class="card__label">Гора Эльбрус</p>
-              <button class="card__like-button">
+              <h2 class="card__label">Гора Эльбрус</h2>
+              <button type="button" class="card__like-button">
                 <img src="images/like_button.svg" alt="лайк" class="card__like">
               </button>
             </div>
@@ -52,8 +49,8 @@
           <li class="card">
             <img src="images/photo_dombai.png" alt="Фото Домбай" class="card__image">
             <div class="card__container">
-              <p class="card__label">Домбай</p>
-              <button class="card__like-button">
+              <h2 class="card__label">Домбай</h2>
+              <button type="button" class="card__like-button">
                 <img src="images/like_button.svg" alt="лайк" class="card__like">
               </button> 
             </div>
@@ -61,8 +58,8 @@
           <li class="card">
             <img src="images/photo_lagonaki.png" alt="Фото плато Лаго-Наки" class="card__image">
             <div class="card__container">
-              <p class="card__label">Плато Лаго-Наки наки наки</p>
-              <button class="card__like-button">
+              <h2 class="card__label">Плато Лаго-Наки наки наки</h2>
+              <button type="button" class="card__like-button">
                 <img src="images/like_button.svg" alt="лайк" class="card__like">
               </button>
             </div>
@@ -70,8 +67,8 @@
           <li class="card">
             <img src="images/photo_ahun.png" alt="Фото горы Ахун" class="card__image">
             <div class="card__container">
-              <p class="card__label">Гора Ахун</p>
-              <button class="card__like-button">
+              <h2 class="card__label">Гора Ахун</h2>
+              <button type="button" class="card__like-button">
                 <img src="images/like_button.svg" alt="лайк" class="card__like">
               </button>
             </div>
@@ -79,8 +76,8 @@
           <li class="card">
             <img src="images/photo_chernogor.png" alt="Фото горы Черногор" class="card__image">
             <div class="card__container">
-              <p class="card__label">Гора Черногор</p>
-              <button class="card__like-button">
+              <h2 class="card__label">Гора Черногор</h2>
+              <button type="button" class="card__like-button">
                 <img src="images/like_button.svg" alt="лайк" class="card__like">
               </button>
             </div>
@@ -97,18 +94,18 @@
     <div class="popup">
       <div class="popup__container">
         <h2 class="popup__header">Редактировать профиль</h2>
-        <form  class="popup__form">
-          <input type="text" class="popup__name" value="Жак-Ив Кусто">
-          <input type="text" class="popup__job" value="Исследователь океана">
-          <input type="submit" class="popup__save-button" value="Сохранить">
+        <form class="popup__form" name="popup__form">
+          <input type="text" name="popup__name" class="popup__input popup__input_name_value" placeholder="Введи своё имя" required>
+          <input type="text" name="popup__job" class="popup__input popup__input_job_value" placeholder="Введи свою профессию" required>
+          <button type="submit" class="popup__save-button">Сохранить</button>
         </form>
-        <button class="popup__close-button">
+        <button type="button" class="popup__close-button">
           <img src="images/popup_close_button.svg" alt="кнопка закрытия" class="popup__close-icon">
         </button>
       </div>
     </div>
 
   </div>
-  <script src="pages/index.js"></script>
+  <script src="scripts/index.js"></script>
 </body>
 </html>

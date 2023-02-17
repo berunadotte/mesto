@@ -15,7 +15,8 @@
   .popup__header {
     font-size: 18px;
     line-height: 22px;
-    padding-top: 25px;
-    padding-bottom: 75px;
+    padding-top: 26px;
+    padding-bottom: 78px;
+    margin-left: 22px;
   }
 }

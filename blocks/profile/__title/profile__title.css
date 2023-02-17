@@ -13,7 +13,7 @@
   overflow: hidden;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 680px) {
   .profile__title {
     padding-top: 26px;
     padding-bottom: 2px;

@@ -8,8 +8,17 @@
   align-items: center;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 900px) {
   .profile {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .profile {
+    margin-left: 0;
+    margin-right: 0;
     flex-direction: column;
     padding-top: 42px;
     padding-bottom: 36px;

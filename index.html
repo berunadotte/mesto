@@ -27,73 +27,18 @@
       </section>
 
       <section class="cards" aria-label="Секция с карточками">
-        <ul class="cards__list">
-          <li class="card">
-            <img src="images/photo_karachaevsk.png" alt="Фото монастыря г. Карачаевск" class="card__image">
-            <div class="card__container">
-              <h2 class="card__label">Карачаевск</h2>
-              <button type="button" class="card__like-button">
-                <img src="images/like_button.svg" alt="лайк" class="card__like">
-              </button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="images/photo_elbrus.png" alt="Фото горы Эльбрус" class="card__image">
-            <div class="card__container">
-              <h2 class="card__label">Гора Эльбрус</h2>
-              <button type="button" class="card__like-button">
-                <img src="images/like_button.svg" alt="лайк" class="card__like">
-              </button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="images/photo_dombai.png" alt="Фото Домбай" class="card__image">
-            <div class="card__container">
-              <h2 class="card__label">Домбай</h2>
-              <button type="button" class="card__like-button">
-                <img src="images/like_button.svg" alt="лайк" class="card__like">
-              </button> 
-            </div>
-          </li>
-          <li class="card">
-            <img src="images/photo_lagonaki.png" alt="Фото плато Лаго-Наки" class="card__image">
-            <div class="card__container">
-              <h2 class="card__label">Плато Лаго-Наки наки наки</h2>
-              <button type="button" class="card__like-button">
-                <img src="images/like_button.svg" alt="лайк" class="card__like">
-              </button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="images/photo_ahun.png" alt="Фото горы Ахун" class="card__image">
-            <div class="card__container">
-              <h2 class="card__label">Гора Ахун</h2>
-              <button type="button" class="card__like-button">
-                <img src="images/like_button.svg" alt="лайк" class="card__like">
-              </button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="images/photo_chernogor.png" alt="Фото горы Черногор" class="card__image">
-            <div class="card__container">
-              <h2 class="card__label">Гора Черногор</h2>
-              <button type="button" class="card__like-button">
-                <img src="images/like_button.svg" alt="лайк" class="card__like">
-              </button>
-            </div>
-          </li>
-          <template class="card__template">
-            <li class="card">
-              <img class="card__image">
-              <div class="card__container">
-                <h2 class="card__label"></h2>
-                <button type="button" class="card__like-button">
-                  <img src="images/like_button.svg" alt="лайк" class="card__like">
-                </button>
-              </div> 
-            </li>
+        <ul class="cards__list"></ul>
+          <template class="cards__template">
+             <li class="card">
+               <img class="card__image">
+                <div class="card__container">
+                 <h2 class="card__label"></h2>
+                 <button type="button" class="card__like-button">
+                   <img src="images/like_button.svg" alt="лайк" class="card__like">
+                 </button>
+               </div> 
+             </li>
           </template>
-        </ul>
       </section>
 
     </main>
@@ -109,6 +54,20 @@
           <input type="text" name="popup__name" class="popup__input popup__input_name_value" placeholder="Введи своё имя" required>
           <input type="text" name="popup__job" class="popup__input popup__input_job_value" placeholder="Введи свою профессию" required>
           <button type="submit" class="popup__save-button">Сохранить</button>
+        </form>
+        <button type="button" class="popup__close-button">
+          <img src="images/popup_close_button.svg" alt="кнопка закрытия" class="popup__close-icon">
+        </button>
+      </div>
+    </div>
+
+    <div class="popup-new-card">
+      <div class="popup__container">
+        <h2 class="popup__header">Новое место</h2>
+        <form class="popup__form" name="popup__form">
+          <input type="text" name="popup__card-name" class="popup__input popup__input_card-name_value" placeholder="Название" required>
+          <input type="text" name="popup__image-link" class="popup__input popup__input_image-link_value" placeholder="Ссылка на картинку" required>
+          <button type="submit" class="popup__create-button">Создать</button>
         </form>
         <button type="button" class="popup__close-button">
           <img src="images/popup_close_button.svg" alt="кнопка закрытия" class="popup__close-icon">

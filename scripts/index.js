@@ -33,28 +33,37 @@ let nameInput = document.querySelector('.popup__input_name_value')
 let jobInput = document.querySelector('.popup__input_job_value')
 let profileName = document.querySelector('.profile__title')
 let profileJob = document.querySelector('.profile__subtitle')
-let cardsList = document.querySelector('.cards__list')
-const cardImage = document.querySelector('.card__image')
-const cardLabel = document.querySelector('.card__label')
+
+let popupAdding = document.querySelector('.popup-new-card')
 
 
 
- initialCards.forEach( (arrCardsElement) => {
+initialCards.forEach((arrCardsElement) => {
+
+  const cardsTemplate = document.querySelector('.cards__template').content
+  const cardsList = document.querySelector('.cards__list')
+  const cardElement = cardsTemplate.querySelector('.card').cloneNode(true)
  
-//   cardImage.src = arrCardsElement.link
-//   cardImage.alt = arrCardsElement.name
+  cardElement.querySelector('.card__image').src = arrCardsElement.link
+  cardElement.querySelector('.card__image').alt = arrCardsElement.name
+  cardElement.querySelector('.card__label').textContent = arrCardsElement.name
 
-//   card.append(cardImage)
+  cardsList.append(cardElement)
 
-
-//   cardsList.append(card)
- 
 })
-// console.log(cardsList)
 
 function openEditProfile() {
   // открытие попапа по нажатию на кнопку редактирования
   popupWindow.setAttribute('class', 'popup popup_opened')
+
+  nameInput.value = profileName.textContent
+  jobInput.value = profileJob.textContent
+  // присваивание текстовых значений атрибуту value форм ввода данных пользователем
+}
+
+function addNewCard() {
+  // открытие попапа по нажатию на кнопку редактирования
+  popupAdding.setAttribute('class', 'popup-new-card popup_opened')
 
   nameInput.value = profileName.textContent
   jobInput.value = profileJob.textContent

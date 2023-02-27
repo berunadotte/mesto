@@ -1,4 +1,4 @@
-.popup__close-button {
+.popup-edit-profile__close-button {
   width: 32px;
   height: 32px;
   position: absolute;
@@ -11,12 +11,12 @@
   cursor: pointer;
 }
 
-.popup__close-button:hover {
+.popup-edit-profile__close-button:hover {
   opacity: 0.6;
 }
 
 @media screen and (max-width: 600px) {
-  .popup__close-button {
+  .popup-edit-profile__close-button {
     width: 20px;
     height: 20px;
     transform: translate(0, -36px);

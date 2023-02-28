@@ -41,10 +41,14 @@ let newCardFormElement = document.querySelector('.popup-new-card__form')
 let cardNameInput =document.querySelector('.popup-new-card__input_card-name_value')
 let cardLinkInput = document.querySelector('.popup__input_image-link_value')
 
+const cardsTemplate = document.querySelector('.cards__template').content
+const cardsList = document.querySelector('.cards__list')
+
+
 
 initialCards.forEach((arrCardsElement) => {
-  const cardsTemplate = document.querySelector('.cards__template').content
-  const cardsList = document.querySelector('.cards__list')
+  // const cardsTemplate = document.querySelector('.cards__template').content
+  // const cardsList = document.querySelector('.cards__list')
   const cardElement = cardsTemplate.querySelector('.card').cloneNode(true)
  
   cardElement.querySelector('.card__image').src = arrCardsElement.link
@@ -92,7 +96,7 @@ function handleFormSubmit(evt) {
 
 function addNewCard() {
   // открытие попапа по нажатию на кнопку редактирования
-  popupAdding.setAttribute('class', 'popup popup-new-card popup_opened')
+  popupAddingCardWindow.setAttribute('class', 'popup-new-card popup-new-card_opened')
 
   nameInput.value = profileName.textContent
   jobInput.value = profileJob.textContent
@@ -102,12 +106,22 @@ function addNewCard() {
 function handleAddCard(evt) {
   evt.preventDefault()
 
-  initialCards(initialCards.length) = {name: cardNameInput, link: cardLinkInput}
+  initialCards[initialCards.length] = {name: cardNameInput.value, link: cardLinkInput.value}
+
+  const newCardElement = cardsTemplate.querySelector('.card').cloneNode(true)
+ 
+  newCardElement.querySelector('.card__image').src = cardLinkInput.value
+  newCardElement.querySelector('.card__image').alt = cardNameInput.value
+  newCardElement.querySelector('.card__label').textContent = cardNameInput.value
+
+  cardsList.prepend(newCardElement)
+
+  cardLinkInput.value = ''
+  cardNameInput.value = ''
+
+  closeAddingCard()
 
 }
-
-
-
 
 
 profileEditButton.addEventListener('click', openEditProfile)
@@ -115,5 +129,5 @@ closeEditButton.addEventListener('click', closeEditProfile)
 editProfileFormElement.addEventListener('submit', handleFormSubmit)
 
 closeAddingPopupButton.addEventListener('click', closeAddingCard)
-addCardButton.addEventListener('click', openAddingCard)
-
+addCardButton.addEventListener('click', addNewCard )
+newCardFormElement.addEventListener('submit', handleAddCard)

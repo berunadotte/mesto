@@ -27,18 +27,19 @@ const initialCards = [
 
 let profileEditButton = document.querySelector('.profile__edit-button')
 let closeEditButton = document.querySelector('.popup-edit-profile__close-button')
-let popupWindow = document.querySelector('.popup-edit-profile')
-let formElement = document.querySelector('.popup-edit-profile__form')
+let popupEditProfileWindow = document.querySelector('.popup-edit-profile')
+let editProfileFormElement = document.querySelector('.popup-edit-profile__form')
 let nameInput = document.querySelector('.popup-edit-profile__input_name_value')
 let jobInput = document.querySelector('.popup-edit-profile__input_job_value')
 let profileName = document.querySelector('.profile__title')
 let profileJob = document.querySelector('.profile__subtitle')
 
-let popupAdding = document.querySelector('.popup-new-card')
 let addCardButton = document.querySelector('.profile__add-button')
-let cardNameInput = document.querySelector('.popup__input_card-name_value')
+let closeAddingPopupButton = document.querySelector('.popup-new-card__close-button')
+let popupAddingCardWindow = document.querySelector ('.popup-new-card')
+let newCardFormElement = document.querySelector('.popup-new-card__form')
+let cardNameInput =document.querySelector('.popup-new-card__input_card-name_value')
 let cardLinkInput = document.querySelector('.popup__input_image-link_value')
-let createCardButton = document.querySelector('.popup__create-button')
 
 
 initialCards.forEach((arrCardsElement) => {
@@ -54,9 +55,10 @@ initialCards.forEach((arrCardsElement) => {
 
 })
 
+
 function openEditProfile() {
   // открытие попапа по нажатию на кнопку редактирования
-  popupWindow.setAttribute('class', 'popup-edit-profile popup-edit-profile_opened')
+  popupEditProfileWindow.setAttribute('class', 'popup-edit-profile popup-edit-profile_opened')
 
   nameInput.value = profileName.textContent
   jobInput.value = profileJob.textContent
@@ -65,7 +67,15 @@ function openEditProfile() {
 
 function closeEditProfile() {
   // закрытие попапа по нажатию на крестик
-  popupWindow.setAttribute('class', 'popup-edit-profile')
+  popupEditProfileWindow.setAttribute('class', 'popup-edit-profile')
+}
+
+const openAddingCard = () => {
+  popupAddingCardWindow.setAttribute('class', 'popup-new-card popup-new-card_opened')
+}
+
+const closeAddingCard = () => {
+  popupAddingCardWindow.setAttribute('class', 'popup-new-card')
 }
 
 function handleFormSubmit(evt) {
@@ -102,6 +112,8 @@ function handleAddCard(evt) {
 
 profileEditButton.addEventListener('click', openEditProfile)
 closeEditButton.addEventListener('click', closeEditProfile)
-formElement.addEventListener('submit', handleFormSubmit)
+editProfileFormElement.addEventListener('submit', handleFormSubmit)
 
+closeAddingPopupButton.addEventListener('click', closeAddingCard)
+addCardButton.addEventListener('click', openAddingCard)
 

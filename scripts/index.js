@@ -47,8 +47,6 @@ const cardsList = document.querySelector('.cards__list')
 
 
 initialCards.forEach((arrCardsElement) => {
-  // const cardsTemplate = document.querySelector('.cards__template').content
-  // const cardsList = document.querySelector('.cards__list')
   const cardElement = cardsTemplate.querySelector('.card').cloneNode(true)
  
   cardElement.querySelector('.card__image').src = arrCardsElement.link

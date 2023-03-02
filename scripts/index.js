@@ -91,8 +91,7 @@ function addNewCard() {
   popupAddingCardWindow.setAttribute('class', 'popup-new-card popup-new-card_opened')
 }
 
-// let cardLikeButtons = cardsList.querySelectorAll('.card__like-button')
-
+let cardLikeButtons = cardsList.querySelectorAll('.card__like-button')
 
 function handleAddCard(evt) {
   evt.preventDefault()
@@ -106,15 +105,13 @@ function handleAddCard(evt) {
   newCardElement.querySelector('.card__label').textContent = cardNameInput.value
 
   cardsList.prepend(newCardElement)
-  cardLikeButtons.
 
   cardLinkInput.value = ''
   cardNameInput.value = ''
 
   closeAddingCard()
+  refreshCards()
 }
-
-
 
 profileEditButton.addEventListener('click', openEditProfile)
 closeEditButton.addEventListener('click', closeEditProfile)
@@ -124,24 +121,20 @@ closeAddingPopupButton.addEventListener('click', closeAddingCard)
 addCardButton.addEventListener('click', addNewCard)
 newCardFormElement.addEventListener('submit', handleAddCard)
 
-// cardLikeButtons.forEach((likeButton) => {
-//   let cardLike = likeButton.querySelector('.card__like')
-//   function likeToggle() {
-//     if (cardLike.src.includes('like_button_active')) {
-//      cardLike.src = 'images/like_button.svg'
-//    } else {
-//      cardLike.src = 'images/like_button_active.svg'
-//     }
-//    }
-//   likeButton.addEventListener('click', likeToggle)
-// })
+function refreshCards() {
+  cardLikeButtons = cardsList.querySelectorAll('.card__like-button')
+  console.log(cardLikeButtons)
+  return cardLikeButtons
+}
 
-const likeButton = document.querySelector('.card__like-button')
+cardLikeButtons.forEach((likeButton) => {
 
-likeButton.addEventListener('click', (evt) => {
-  const eventTarget = evt.target
-  console.log(evt)
-  console.log(eventTarget)
-
-  // eventTarget.querySelector('.card__like').src = 'images/like_button_active.svg'
+  likeButton.addEventListener('click', (evt) => {
+    const eventTarget = evt.target
+    if (eventTarget.src.includes('like_button_active')) {
+    eventTarget.src = 'images/like_button.svg'
+    } else {
+    eventTarget.src = 'images/like_button_active.svg'
+    }
+  })
 })

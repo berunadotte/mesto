@@ -44,6 +44,8 @@ let cardLinkInput = document.querySelector('.popup__input_image-link_value')
 const cardsTemplate = document.querySelector('.cards__template').content
 const cardsList = document.querySelector('.cards__list')
 
+
+
 initialCards.forEach((arrCardsElement) => {
   const cardElement = cardsTemplate.querySelector('.card').cloneNode(true)
 
@@ -92,6 +94,7 @@ function addNewCard() {
 }
 
 let cardLikeButtons = cardsList.querySelectorAll('.card__like-button')
+let cardDeleteButtons = document.querySelectorAll('.card__delete-button')
 
 function handleAddCard(evt) {
   evt.preventDefault()
@@ -138,3 +141,11 @@ cardLikeButtons.forEach((likeButton) => {
     }
   })
 })
+
+cardDeleteButtons.forEach((deleteButton) => {
+  deleteButton.addEventListener('click', (trash) => {
+    const trashTarget = trash.target.closest('.card')
+    trashTarget.remove()
+  })
+})
+

@@ -25,25 +25,24 @@ const initialCards = [
   },
 ]
 
-let profileEditButton = document.querySelector('.profile__edit-button')
-let closeEditButton = document.querySelector('.popup-edit-profile__close-button')
-let popupEditProfileWindow = document.querySelector('.popup-edit-profile')
-let editProfileFormElement = document.querySelector('.popup-edit-profile__form')
-let nameInput = document.querySelector('.popup-edit-profile__input_name_value')
-let jobInput = document.querySelector('.popup-edit-profile__input_job_value')
-let profileName = document.querySelector('.profile__title')
-let profileJob = document.querySelector('.profile__subtitle')
-
-let addCardButton = document.querySelector('.profile__add-button')
-let closeAddingPopupButton = document.querySelector('.popup-new-card__close-button')
-let popupAddingCardWindow = document.querySelector('.popup-new-card')
-let newCardFormElement = document.querySelector('.popup-new-card__form')
-let cardNameInput = document.querySelector('.popup-new-card__input_card-name_value')
-let cardLinkInput = document.querySelector('.popup__input_image-link_value')
-
 const cardsTemplate = document.querySelector('.cards__template').content
 const cardsList = document.querySelector('.cards__list')
 
+const popup = document.querySelector('.popup')
+const closeButtons = document.querySelectorAll('.popup__close-button')
+const profileEditButton = document.querySelector('.profile__edit-button')
+const popupEditProfileWindow = document.querySelector('.popup_edit-profile')
+const editProfileFormElement = document.querySelector('.popup__form_edit-profile')
+const addCardButton = document.querySelector('.profile__add-button')
+const popupAddingCardWindow = document.querySelector('.popup_new-card')
+const newCardFormElement = document.querySelector('.popup__form_new-card')
+
+let profileName = document.querySelector('.profile__title')
+let profileJob = document.querySelector('.profile__subtitle')
+let nameInput = document.querySelector('.popup__input_name-value')
+let jobInput = document.querySelector('.popup__input_job-value')
+let cardNameInput = document.querySelector('.popup__input_card-name-value')
+let cardLinkInput = document.querySelector('.popup__input_image-link-value')
 
 
 initialCards.forEach((arrCardsElement) => {
@@ -56,30 +55,17 @@ initialCards.forEach((arrCardsElement) => {
   cardsList.append(cardElement)
 })
 
-function popupToggle(item) {
-  item.classList.toggle('popup_opened')
+const popupToggle = (itm) => {
+  itm.classList.toggle('popup_opened')
 }
 
 function openEditProfile() {
   // открытие попапа по нажатию на кнопку редактирования
-  popupEditProfileWindow.setAttribute('class', 'popup-edit-profile popup-edit-profile_opened')
+  popupToggle(popupEditProfileWindow)
 
   nameInput.value = profileName.textContent
   jobInput.value = profileJob.textContent
   // присваивание текстовых значений атрибуту value форм ввода данных пользователем
-}
-
-function closeEditProfile() {
-  // закрытие попапа по нажатию на крестик
-  popupEditProfileWindow.setAttribute('class', 'popup-edit-profile')
-}
-
-const openAddingCard = () => {
-  popupAddingCardWindow.setAttribute('class', 'popup-new-card popup-new-card_opened')
-}
-
-const closeAddingCard = () => {
-  popupAddingCardWindow.setAttribute('class', 'popup-new-card')
 }
 
 function handleFormSubmit(evt) {
@@ -88,54 +74,33 @@ function handleFormSubmit(evt) {
   profileName.textContent = nameInput.value
   profileJob.textContent = jobInput.value
   // записывает значения введенные в форме пользователем в соответствующие текстовые значения элементов DOM дерева
-  closeEditProfile()
+  popupToggle(popupEditProfileWindow)
   // вызов функции закрытия формы
 }
 
-function addNewCard() {
-  // открытие попапа по нажатию на кнопку добавления
-  popupAddingCardWindow.setAttribute('class', 'popup-new-card popup-new-card_opened')
-}
-
 let cardLikeButtons = cardsList.querySelectorAll('.card__like-button')
-let cardDeleteButtons = document.querySelectorAll('.card__delete-button')
+let cardDeleteButtons = cardsList.querySelectorAll('.card__delete-button')
 
 function handleAddCard(evt) {
   evt.preventDefault()
 
   initialCards[initialCards.length] = {name: cardNameInput.value, link: cardLinkInput.value}
 
-  const newCardElement = cardsTemplate.querySelector('.card').cloneNode(true)
+  const newCard = cardsTemplate.querySelector('.card').cloneNode(true)
 
-  newCardElement.querySelector('.card__image').src = cardLinkInput.value
-  newCardElement.querySelector('.card__image').alt = cardNameInput.value
-  newCardElement.querySelector('.card__label').textContent = cardNameInput.value
+  newCard.querySelector('.card__image').src = cardLinkInput.value
+  newCard.querySelector('.card__image').alt = cardNameInput.value
+  newCard.querySelector('.card__label').textContent = cardNameInput.value
 
-  cardsList.prepend(newCardElement)
+  cardsList.prepend(newCard)
 
   cardLinkInput.value = ''
   cardNameInput.value = ''
 
-  closeAddingCard()
-  refreshCards()
-}
-
-profileEditButton.addEventListener('click', openEditProfile)
-closeEditButton.addEventListener('click', closeEditProfile)
-editProfileFormElement.addEventListener('submit', handleFormSubmit)
-
-closeAddingPopupButton.addEventListener('click', closeAddingCard)
-addCardButton.addEventListener('click', addNewCard)
-newCardFormElement.addEventListener('submit', handleAddCard)
-
-function refreshCards() {
-  cardLikeButtons = cardsList.querySelectorAll('.card__like-button')
-  console.log(cardLikeButtons)
-  return cardLikeButtons
+  popupToggle(popupAddingCardWindow)
 }
 
 cardLikeButtons.forEach((likeButton) => {
-
   likeButton.addEventListener('click', (evt) => {
     const eventTarget = evt.target
     if (eventTarget.src.includes('like_button_active')) {
@@ -152,4 +117,17 @@ cardDeleteButtons.forEach((deleteButton) => {
     trashTarget.remove()
   })
 })
+
+closeButtons.forEach((closeBtn) => {
+  closeBtn.addEventListener('click', (evt) => {
+  const target = evt.target.closest('.popup')
+  popupToggle(target)
+  })
+})
+
+
+profileEditButton.addEventListener('click', openEditProfile)
+addCardButton.addEventListener('click', () => popupToggle(popupAddingCardWindow)) 
+editProfileFormElement.addEventListener('submit', handleFormSubmit)
+newCardFormElement.addEventListener('submit', handleAddCard)
 

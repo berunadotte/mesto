@@ -56,6 +56,10 @@ initialCards.forEach((arrCardsElement) => {
   cardsList.append(cardElement)
 })
 
+function popupToggle(item) {
+  item.classList.toggle('popup_opened')
+}
+
 function openEditProfile() {
   // открытие попапа по нажатию на кнопку редактирования
   popupEditProfileWindow.setAttribute('class', 'popup-edit-profile popup-edit-profile_opened')

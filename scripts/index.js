@@ -37,6 +37,9 @@ const addCardButton = document.querySelector('.profile__add-button')
 const popupAddingCardWindow = document.querySelector('.popup_new-card')
 const newCardFormElement = document.querySelector('.popup__form_new-card')
 const popupFullscreenImage = document.querySelector('.popup_image')
+const popupImage = document.querySelector('.popup__image')
+const popupImageLabel = document.querySelector('.popup__image-label')
+
 
 let profileName = document.querySelector('.profile__title')
 let profileJob = document.querySelector('.profile__subtitle')
@@ -48,11 +51,12 @@ let cardLinkInput = document.querySelector('.popup__input_image-link-value')
 
 initialCards.forEach((arrCardsElement) => {
   const cardElement = cardsTemplate.querySelector('.card').cloneNode(true)
-
-  cardElement.querySelector('.card__image').src = arrCardsElement.link
-  cardElement.querySelector('.card__image').alt = arrCardsElement.name
-  cardElement.querySelector('.card__label').textContent = arrCardsElement.name
   let cardImage = cardElement.querySelector('.card__image')
+
+
+  cardImage.src = arrCardsElement.link
+  cardImage.alt = arrCardsElement.name
+  cardElement.querySelector('.card__label').textContent = arrCardsElement.name
   let cardLike = cardElement.querySelector('.card__like')
   let cardLikeButton = cardElement.querySelector('.card__like-button')
   let cardDeleteButton = cardElement.querySelector('.card__delete-button')
@@ -71,6 +75,9 @@ initialCards.forEach((arrCardsElement) => {
 
   cardImage.addEventListener('click', () => {
     popupFullscreenImage.classList.add('popup_opened')
+    popupImage.src = arrCardsElement.link
+    popupImage.alt = arrCardsElement.name
+    popupImageLabel.textContent = arrCardsElement.name
   })
   
   cardsList.append(cardElement)
@@ -105,11 +112,13 @@ function handleAddCard(evt) {
   initialCards[initialCards.length] = {name: cardNameInput.value, link: cardLinkInput.value}
 
   const newCard = cardsTemplate.querySelector('.card').cloneNode(true)
-
-  newCard.querySelector('.card__image').src = cardLinkInput.value
-  newCard.querySelector('.card__image').alt = cardNameInput.value
-  newCard.querySelector('.card__label').textContent = cardNameInput.value
   let newCardImage = newCard.querySelector('.card__image')
+  let newCardLabel = newCard.querySelector('.card__label')
+
+  newCardImage.src = cardLinkInput.value
+  newCardImage.alt = cardNameInput.value
+  newCardLabel.textContent = cardNameInput.value
+
   let newCardLikeButton = newCard.querySelector('.card__like-button')
   let newCardLike = newCard.querySelector('.card__like')
   let newCardDeleteButton = newCard.querySelector('.card__delete-button')
@@ -123,12 +132,15 @@ function handleAddCard(evt) {
 
   newCardDeleteButton.addEventListener('click', (trash) => {
     const trashTarget = trash.target.closest('.card')
-      trashTarget.remove()
-    })
+    trashTarget.remove()
+  })
 
-    newCardImage.addEventListener('click', () => {
-      popupFullscreenImage.classList.add('popup_opened')
-    })
+  newCardImage.addEventListener('click', () => {
+    popupFullscreenImage.classList.add('popup_opened')
+    popupImage.src = newCardImage.src
+    popupImage.alt = newCardLabel.textContent
+    popupImageLabel.textContent = newCardLabel.textContent
+  })
 
   cardsList.prepend(newCard)
 

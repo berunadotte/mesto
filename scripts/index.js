@@ -36,6 +36,7 @@ const editProfileFormElement = document.querySelector('.popup__form_edit-profile
 const addCardButton = document.querySelector('.profile__add-button')
 const popupAddingCardWindow = document.querySelector('.popup_new-card')
 const newCardFormElement = document.querySelector('.popup__form_new-card')
+const popupFullscreenImage = document.querySelector('.popup_image')
 
 let profileName = document.querySelector('.profile__title')
 let profileJob = document.querySelector('.profile__subtitle')
@@ -51,12 +52,32 @@ initialCards.forEach((arrCardsElement) => {
   cardElement.querySelector('.card__image').src = arrCardsElement.link
   cardElement.querySelector('.card__image').alt = arrCardsElement.name
   cardElement.querySelector('.card__label').textContent = arrCardsElement.name
+  let cardImage = cardElement.querySelector('.card__image')
+  let cardLike = cardElement.querySelector('.card__like')
+  let cardLikeButton = cardElement.querySelector('.card__like-button')
+  let cardDeleteButton = cardElement.querySelector('.card__delete-button')
 
+  cardLikeButton.addEventListener('click', () => {
+    if (cardLike.src.includes('like_button_active')) {
+      cardLike.src = 'images/like_button.svg'
+    } else {
+      cardLike.src = 'images/like_button_active.svg'
+    }})
+
+  cardDeleteButton.addEventListener('click', (trash) => {
+    const trashTarget = trash.target.closest('.card')
+    trashTarget.remove()
+  })
+
+  cardImage.addEventListener('click', () => {
+    popupFullscreenImage.classList.add('popup_opened')
+  })
+  
   cardsList.append(cardElement)
 })
 
-const popupToggle = (itm) => {
-  itm.classList.toggle('popup_opened')
+const popupToggle = (item) => {
+  item.classList.toggle('popup_opened')
 }
 
 function openEditProfile() {
@@ -78,9 +99,6 @@ function handleFormSubmit(evt) {
   // вызов функции закрытия формы
 }
 
-let cardLikeButtons = cardsList.querySelectorAll('.card__like-button')
-let cardDeleteButtons = cardsList.querySelectorAll('.card__delete-button')
-
 function handleAddCard(evt) {
   evt.preventDefault()
 
@@ -91,6 +109,26 @@ function handleAddCard(evt) {
   newCard.querySelector('.card__image').src = cardLinkInput.value
   newCard.querySelector('.card__image').alt = cardNameInput.value
   newCard.querySelector('.card__label').textContent = cardNameInput.value
+  let newCardImage = newCard.querySelector('.card__image')
+  let newCardLikeButton = newCard.querySelector('.card__like-button')
+  let newCardLike = newCard.querySelector('.card__like')
+  let newCardDeleteButton = newCard.querySelector('.card__delete-button')
+
+  newCardLikeButton.addEventListener('click', () => {
+    if (newCardLike.src.includes('like_button_active')) {
+      newCardLike.src = 'images/like_button.svg'
+    } else {
+      newCardLike.src = 'images/like_button_active.svg'
+    }})
+
+  newCardDeleteButton.addEventListener('click', (trash) => {
+    const trashTarget = trash.target.closest('.card')
+      trashTarget.remove()
+    })
+
+    newCardImage.addEventListener('click', () => {
+      popupFullscreenImage.classList.add('popup_opened')
+    })
 
   cardsList.prepend(newCard)
 
@@ -100,31 +138,12 @@ function handleAddCard(evt) {
   popupToggle(popupAddingCardWindow)
 }
 
-cardLikeButtons.forEach((likeButton) => {
-  likeButton.addEventListener('click', (evt) => {
-    const eventTarget = evt.target
-    if (eventTarget.src.includes('like_button_active')) {
-    eventTarget.src = 'images/like_button.svg'
-    } else {
-    eventTarget.src = 'images/like_button_active.svg'
-    }
-  })
-})
-
-cardDeleteButtons.forEach((deleteButton) => {
-  deleteButton.addEventListener('click', (trash) => {
-    const trashTarget = trash.target.closest('.card')
-    trashTarget.remove()
-  })
-})
-
 closeButtons.forEach((closeBtn) => {
   closeBtn.addEventListener('click', (evt) => {
   const target = evt.target.closest('.popup')
   popupToggle(target)
   })
 })
-
 
 profileEditButton.addEventListener('click', openEditProfile)
 addCardButton.addEventListener('click', () => popupToggle(popupAddingCardWindow)) 

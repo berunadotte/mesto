@@ -1,30 +1,3 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-  },
-]
-
 const cardsTemplate = document.querySelector('.cards__template').content
 const cardsList = document.querySelector('.cards__list')
 
@@ -40,34 +13,35 @@ const popupFullscreenImage = document.querySelector('.popup_image')
 const popupImage = document.querySelector('.popup__image')
 const popupImageLabel = document.querySelector('.popup__image-label')
 
+const profileName = document.querySelector('.profile__title')
+const profileJob = document.querySelector('.profile__subtitle')
+const nameInput = document.querySelector('.popup__input_name-value')
+const jobInput = document.querySelector('.popup__input_job-value')
+const cardNameInput = document.querySelector('.popup__input_card-name-value')
+const cardLinkInput = document.querySelector('.popup__input_image-link-value')
 
-let profileName = document.querySelector('.profile__title')
-let profileJob = document.querySelector('.profile__subtitle')
-let nameInput = document.querySelector('.popup__input_name-value')
-let jobInput = document.querySelector('.popup__input_job-value')
-let cardNameInput = document.querySelector('.popup__input_card-name-value')
-let cardLinkInput = document.querySelector('.popup__input_image-link-value')
-
+const likeToggle = (element) => {
+  element.classList.toggle('card__like_active')
+}
+const popupToggle = (item) => {
+  item.classList.toggle('popup_opened')
+}
 
 initialCards.forEach((arrCardsElement) => {
   const cardElement = cardsTemplate.querySelector('.card').cloneNode(true)
-  let cardImage = cardElement.querySelector('.card__image')
-
+  const cardImage = cardElement.querySelector('.card__image')
 
   cardImage.src = arrCardsElement.link
   cardImage.alt = arrCardsElement.name
   cardElement.querySelector('.card__label').textContent = arrCardsElement.name
-  let cardLike = cardElement.querySelector('.card__like')
-  let cardLikeButton = cardElement.querySelector('.card__like-button')
-  let cardDeleteButton = cardElement.querySelector('.card__delete-button')
+  const cardLike = cardElement.querySelector('.card__like')
+  const cardLikeButton = cardElement.querySelector('.card__like-button')
+  const cardDeleteButton = cardElement.querySelector('.card__delete-button')
 
   cardLikeButton.addEventListener('click', () => {
-    if (cardLike.src.includes('like_button_active')) {
-      cardLike.src = 'images/like_button.svg'
-    } else {
-      cardLike.src = 'images/like_button_active.svg'
-    }})
-
+    likeToggle(cardLike)
+  })
+  
   cardDeleteButton.addEventListener('click', (trash) => {
     const trashTarget = trash.target.closest('.card')
     trashTarget.remove()
@@ -82,10 +56,6 @@ initialCards.forEach((arrCardsElement) => {
   
   cardsList.append(cardElement)
 })
-
-const popupToggle = (item) => {
-  item.classList.toggle('popup_opened')
-}
 
 function openEditProfile() {
   // открытие попапа по нажатию на кнопку редактирования
@@ -112,23 +82,20 @@ function handleAddCard(evt) {
   initialCards[initialCards.length] = {name: cardNameInput.value, link: cardLinkInput.value}
 
   const newCard = cardsTemplate.querySelector('.card').cloneNode(true)
-  let newCardImage = newCard.querySelector('.card__image')
-  let newCardLabel = newCard.querySelector('.card__label')
+  const newCardImage = newCard.querySelector('.card__image')
+  const newCardLabel = newCard.querySelector('.card__label')
 
   newCardImage.src = cardLinkInput.value
   newCardImage.alt = cardNameInput.value
   newCardLabel.textContent = cardNameInput.value
 
-  let newCardLikeButton = newCard.querySelector('.card__like-button')
-  let newCardLike = newCard.querySelector('.card__like')
-  let newCardDeleteButton = newCard.querySelector('.card__delete-button')
+  const newCardLikeButton = newCard.querySelector('.card__like-button')
+  const newCardLike = newCard.querySelector('.card__like')
+  const newCardDeleteButton = newCard.querySelector('.card__delete-button')
 
   newCardLikeButton.addEventListener('click', () => {
-    if (newCardLike.src.includes('like_button_active')) {
-      newCardLike.src = 'images/like_button.svg'
-    } else {
-      newCardLike.src = 'images/like_button_active.svg'
-    }})
+    likeToggle(newCardLike)
+  })
 
   newCardDeleteButton.addEventListener('click', (trash) => {
     const trashTarget = trash.target.closest('.card')
@@ -144,8 +111,7 @@ function handleAddCard(evt) {
 
   cardsList.prepend(newCard)
 
-  cardLinkInput.value = ''
-  cardNameInput.value = ''
+  newCardFormElement.reset()
 
   popupToggle(popupAddingCardWindow)
 }

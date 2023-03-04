@@ -3,6 +3,11 @@
   display: block;
   width: 282px;
   height: 282px;
-  object-fit:cover;
+  object-fit: cover;
+  cursor: pointer;
+  opacity: 0.8;
+}
 
+.card__image:hover {
+  opacity: 1;
 }

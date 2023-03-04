@@ -1,9 +1,0 @@
-.popup-edit-profile__form {
-  width: 358px;
-}
-
-@media screen and (max-width: 600px) {
-  .popup-edit-profile__form {
-    width: 238px;
-  }
-}

@@ -26,8 +26,6 @@ const togglePopup = (item) => {
   item.classList.toggle('popup_opened')
 }
 
-
-
 const openEditProfile = () => {
   // открытие попапа по нажатию на кнопку редактирования
   togglePopup(popupEditProfileWindow)
@@ -47,7 +45,7 @@ const submitProfileEdit = (evt) => {
   // вызов функции закрытия формы
 }
 
-const createCard = () => {
+const createCard = (cardName, cardLink) => {
   const newCard = cardsTemplate.querySelector('.card').cloneNode(true)
   const newCardImage = newCard.querySelector('.card__image')
   const newCardLabel = newCard.querySelector('.card__label')
@@ -55,9 +53,9 @@ const createCard = () => {
   const newCardLike = newCard.querySelector('.card__like')
   const newCardDeleteButton = newCard.querySelector('.card__delete-button')
 
-  newCardImage.src = cardLinkInput.value
-  newCardImage.alt = cardNameInput.value
-  newCardLabel.textContent = cardNameInput.value
+  newCardImage.src = cardLink
+  newCardImage.alt = cardName
+  newCardLabel.textContent = cardName
 
   newCardLikeButton.addEventListener('click', () => {
     toggleLike(newCardLike)
@@ -80,35 +78,7 @@ const createCard = () => {
 }
 
 initialCards.forEach((arrCardsElement) => {
-  // const cardElement = cardsTemplate.querySelector('.card').cloneNode(true)
-  // const cardImage = cardElement.querySelector('.card__image')
-
-  // cardImage.src = arrCardsElement.link
-  // cardImage.alt = arrCardsElement.name
-  // cardElement.querySelector('.card__label').textContent = arrCardsElement.name
-  // const cardLike = cardElement.querySelector('.card__like')
-  // const cardLikeButton = cardElement.querySelector('.card__like-button')
-  // const cardDeleteButton = cardElement.querySelector('.card__delete-button')
-
-  // cardLikeButton.addEventListener('click', () => {
-  //   toggleLike(cardLike)
-  // })
-
-  // cardDeleteButton.addEventListener('click', (trash) => {
-  //   const trashTarget = trash.target.closest('.card')
-  //   trashTarget.remove()
-  // })
-
-  // cardImage.addEventListener('click', () => {
-  //   popupFullscreenImage.classList.add('popup_opened')
-  //   popupImage.src = arrCardsElement.link
-  //   popupImage.alt = arrCardsElement.name
-  //   popupImageLabel.textContent = arrCardsElement.name
-  // })
-
-  createCard(arrCardsElement)
-
-  cardsList.append(newCard)
+  cardsList.append(createCard(arrCardsElement.name, arrCardsElement.link))
 })
 
 function addNewCard(evt) {
@@ -117,7 +87,7 @@ function addNewCard(evt) {
     name: cardNameInput.value,
     link: cardLinkInput.value
   }
-  cardsList.prepend(createCard())
+  cardsList.prepend(createCard(cardNameInput.value, cardLinkInput.value))
 
   togglePopup(popupAddingCardWindow)
 }
@@ -130,9 +100,11 @@ buttonsClose.forEach((closeBtn) => {
 })
 
 profileEditButton.addEventListener('click', openEditProfile)
+
 buttonAddCard.addEventListener('click', () => {
   togglePopup(popupAddingCardWindow)
   newCardFormElement.reset()
 })
 profileEditFormElement.addEventListener('submit', submitProfileEdit)
+
 newCardFormElement.addEventListener('submit', addNewCard)

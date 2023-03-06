@@ -19,46 +19,18 @@ const jobInput = document.querySelector('.popup__input_job-value')
 const cardNameInput = document.querySelector('.popup__input_card-name-value')
 const cardLinkInput = document.querySelector('.popup__input_image-link-value')
 
-const likeToggle = (element) => {
+const toggleLike = (element) => {
   element.classList.toggle('card__like_active')
 }
-const popupToggle = (item) => {
+const togglePopup = (item) => {
   item.classList.toggle('popup_opened')
 }
 
-initialCards.forEach((arrCardsElement) => {
-  const cardElement = cardsTemplate.querySelector('.card').cloneNode(true)
-  const cardImage = cardElement.querySelector('.card__image')
 
-  cardImage.src = arrCardsElement.link
-  cardImage.alt = arrCardsElement.name
-  cardElement.querySelector('.card__label').textContent = arrCardsElement.name
-  const cardLike = cardElement.querySelector('.card__like')
-  const cardLikeButton = cardElement.querySelector('.card__like-button')
-  const cardDeleteButton = cardElement.querySelector('.card__delete-button')
-
-  cardLikeButton.addEventListener('click', () => {
-    likeToggle(cardLike)
-  })
-
-  cardDeleteButton.addEventListener('click', (trash) => {
-    const trashTarget = trash.target.closest('.card')
-    trashTarget.remove()
-  })
-
-  cardImage.addEventListener('click', () => {
-    popupFullscreenImage.classList.add('popup_opened')
-    popupImage.src = arrCardsElement.link
-    popupImage.alt = arrCardsElement.name
-    popupImageLabel.textContent = arrCardsElement.name
-  })
-
-  cardsList.append(cardElement)
-})
 
 const openEditProfile = () => {
   // открытие попапа по нажатию на кнопку редактирования
-  popupToggle(popupEditProfileWindow)
+  togglePopup(popupEditProfileWindow)
 
   nameInput.value = profileName.textContent
   jobInput.value = profileJob.textContent
@@ -71,9 +43,10 @@ const submitProfileEdit = (evt) => {
   profileName.textContent = nameInput.value
   profileJob.textContent = jobInput.value
   // записывает значения введенные в форме пользователем в соответствующие текстовые значения элементов DOM дерева
-  popupToggle(popupEditProfileWindow)
+  togglePopup(popupEditProfileWindow)
   // вызов функции закрытия формы
 }
+
 const createCard = () => {
   const newCard = cardsTemplate.querySelector('.card').cloneNode(true)
   const newCardImage = newCard.querySelector('.card__image')
@@ -87,7 +60,7 @@ const createCard = () => {
   newCardLabel.textContent = cardNameInput.value
 
   newCardLikeButton.addEventListener('click', () => {
-    likeToggle(newCardLike)
+    toggleLike(newCardLike)
   })
 
   newCardDeleteButton.addEventListener('click', (trash) => {
@@ -106,6 +79,38 @@ const createCard = () => {
   return newCard
 }
 
+initialCards.forEach((arrCardsElement) => {
+  // const cardElement = cardsTemplate.querySelector('.card').cloneNode(true)
+  // const cardImage = cardElement.querySelector('.card__image')
+
+  // cardImage.src = arrCardsElement.link
+  // cardImage.alt = arrCardsElement.name
+  // cardElement.querySelector('.card__label').textContent = arrCardsElement.name
+  // const cardLike = cardElement.querySelector('.card__like')
+  // const cardLikeButton = cardElement.querySelector('.card__like-button')
+  // const cardDeleteButton = cardElement.querySelector('.card__delete-button')
+
+  // cardLikeButton.addEventListener('click', () => {
+  //   toggleLike(cardLike)
+  // })
+
+  // cardDeleteButton.addEventListener('click', (trash) => {
+  //   const trashTarget = trash.target.closest('.card')
+  //   trashTarget.remove()
+  // })
+
+  // cardImage.addEventListener('click', () => {
+  //   popupFullscreenImage.classList.add('popup_opened')
+  //   popupImage.src = arrCardsElement.link
+  //   popupImage.alt = arrCardsElement.name
+  //   popupImageLabel.textContent = arrCardsElement.name
+  // })
+
+  createCard(arrCardsElement)
+
+  cardsList.append(newCard)
+})
+
 function addNewCard(evt) {
   evt.preventDefault()
   initialCards[initialCards.length] = {
@@ -113,17 +118,21 @@ function addNewCard(evt) {
     link: cardLinkInput.value
   }
   cardsList.prepend(createCard())
-  popupToggle(popupAddingCardWindow)
+
+  togglePopup(popupAddingCardWindow)
 }
 
 buttonsClose.forEach((closeBtn) => {
   closeBtn.addEventListener('click', (evt) => {
     const target = evt.target.closest('.popup')
-    popupToggle(target)
+    togglePopup(target)
   })
 })
 
 profileEditButton.addEventListener('click', openEditProfile)
-buttonAddCard.addEventListener('click', () => popupToggle(popupAddingCardWindow))
+buttonAddCard.addEventListener('click', () => {
+  togglePopup(popupAddingCardWindow)
+  newCardFormElement.reset()
+})
 profileEditFormElement.addEventListener('submit', submitProfileEdit)
 newCardFormElement.addEventListener('submit', addNewCard)

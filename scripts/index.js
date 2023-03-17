@@ -108,3 +108,10 @@ buttonAddCard.addEventListener('click', () => {
 profileEditFormElement.addEventListener('submit', submitProfileEdit)
 
 newCardFormElement.addEventListener('submit', addNewCard)
+
+document.addEventListener('keydown', (evt) => {
+  const openedPopup = document.querySelector('.popup_opened')
+  if (evt.key === 'Escape' && openedPopup) {
+    togglePopup(openedPopup)
+  }
+})

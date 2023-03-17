@@ -1,10 +1,13 @@
 const cardsTemplate = document.querySelector('.cards__template').content
 const cardsList = document.querySelector('.cards__list')
 
+const popupOverlay = document.querySelectorAll('.popup')
 const buttonsClose = document.querySelectorAll('.popup__close-button')
 const profileEditButton = document.querySelector('.profile__edit-button')
 const popupEditProfileWindow = document.querySelector('.popup_edit-profile')
-const profileEditFormElement = document.querySelector('.popup__form_edit-profile')
+const profileEditFormElement = document.querySelector(
+  '.popup__form_edit-profile'
+)
 const buttonAddCard = document.querySelector('.profile__add-button')
 const popupAddingCardWindow = document.querySelector('.popup_new-card')
 const newCardFormElement = document.querySelector('.popup__form_new-card')
@@ -85,7 +88,7 @@ function addNewCard(evt) {
   evt.preventDefault()
   initialCards[initialCards.length] = {
     name: cardNameInput.value,
-    link: cardLinkInput.value
+    link: cardLinkInput.value,
   }
   cardsList.prepend(createCard(cardNameInput.value, cardLinkInput.value))
 
@@ -108,6 +111,16 @@ buttonAddCard.addEventListener('click', () => {
 profileEditFormElement.addEventListener('submit', submitProfileEdit)
 
 newCardFormElement.addEventListener('submit', addNewCard)
+
+const closeOverlay = (evt) => {
+  if ((evt.target = evt.currentTarget)) {
+    togglePopup(evt.target)
+  }
+}
+
+popupOverlay.forEach((overlay) => {
+  overlay.addEventListener('click', closeOverlay)
+})
 
 document.addEventListener('keydown', (evt) => {
   const openedPopup = document.querySelector('.popup_opened')

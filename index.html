@@ -53,8 +53,8 @@
       <div class="popup__container">
         <h2 class="popup__header">Редактировать профиль</h2>
         <form class="popup__form popup__form_edit-profile" name="popup__form_edit-profile" novalidate>
-          <input type="text" name="popup__name" class="popup__input popup__input_name-value" placeholder="Введи своё имя" required>
-          <input type="text" name="popup__job" class="popup__input popup__input_job-value" placeholder="Введи свою профессию" required>
+          <input type="text" name="popup__name" class="popup__input popup__input_name-value" placeholder="Введи своё имя" required minlength="2" maxlength="40">
+          <input type="text" name="popup__job" class="popup__input popup__input_job-value" placeholder="Введи свою профессию" required minlength="2" maxlength="200">
           <button type="submit" class="popup__save-button">Сохранить</button>
         </form>
         <button type="button" class="popup__close-button">

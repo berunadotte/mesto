@@ -17,11 +17,11 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  color: #C4C4C4;
+  color: #c4c4c4;
 }
 
-.popup__input:nth-child(2) {
-  margin: 26px 0 21px 0;
+.popup__input:nth-child(3) {
+  margin: 26px 0 0 0;
 }
 
 @media screen and (max-width: 600px) {

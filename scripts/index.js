@@ -32,7 +32,6 @@ const togglePopup = (item) => {
 const openEditProfile = () => {
   // открытие попапа по нажатию на кнопку редактирования
   togglePopup(popupEditProfileWindow)
-
   nameInput.value = profileName.textContent
   jobInput.value = profileJob.textContent
   // присваивание текстовых значений атрибуту value форм ввода данных пользователем
@@ -92,6 +91,8 @@ function addNewCard(evt) {
   }
   cardsList.prepend(createCard(cardNameInput.value, cardLinkInput.value))
 
+  enableValidation(domElements)
+
   togglePopup(popupAddingCardWindow)
 }
 
@@ -108,12 +109,13 @@ buttonAddCard.addEventListener('click', () => {
   togglePopup(popupAddingCardWindow)
   newCardFormElement.reset()
 })
+
 profileEditFormElement.addEventListener('submit', submitProfileEdit)
 
 newCardFormElement.addEventListener('submit', addNewCard)
 
 const closeOverlay = (evt) => {
-  if ((evt.target = evt.currentTarget)) {
+  if ((evt.target === evt.currentTarget)) {
     togglePopup(evt.target)
   }
 }

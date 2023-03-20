@@ -1,7 +1,7 @@
 const cardsTemplate = document.querySelector('.cards__template').content
 const cardsList = document.querySelector('.cards__list')
 
-const popupOverlay = document.querySelectorAll('.popup')
+const popupOverlays = document.querySelectorAll('.popup')
 const buttonsClose = document.querySelectorAll('.popup__close-button')
 const profileEditButton = document.querySelector('.profile__edit-button')
 const popupEditProfileWindow = document.querySelector('.popup_edit-profile')
@@ -25,13 +25,18 @@ const cardLinkInput = document.querySelector('.popup__input_image-link-value')
 const toggleLike = (element) => {
   element.classList.toggle('card__like_active')
 }
-const togglePopup = (item) => {
-  item.classList.toggle('popup_opened')
+
+const closePopup = (popup) => {
+  popup.classList.remove('popup_opened')
+}
+
+const openPopup = (popup) => {
+  popup.classList.add('popup_opened')
 }
 
 const openEditProfile = () => {
   // открытие попапа по нажатию на кнопку редактирования
-  togglePopup(popupEditProfileWindow)
+  openPopup(popupEditProfileWindow)
   nameInput.value = profileName.textContent
   jobInput.value = profileJob.textContent
   // присваивание текстовых значений атрибуту value форм ввода данных пользователем
@@ -43,7 +48,7 @@ const submitProfileEdit = (evt) => {
   profileName.textContent = nameInput.value
   profileJob.textContent = jobInput.value
   // записывает значения введенные в форме пользователем в соответствующие текстовые значения элементов DOM дерева
-  togglePopup(popupEditProfileWindow)
+  closePopup(popupEditProfileWindow)
   // вызов функции закрытия формы
 }
 
@@ -93,20 +98,20 @@ function addNewCard(evt) {
 
   enableValidation(domElements)
 
-  togglePopup(popupAddingCardWindow)
+  closePopup(popupAddingCardWindow)
 }
 
 buttonsClose.forEach((closeBtn) => {
   closeBtn.addEventListener('click', (evt) => {
     const target = evt.target.closest('.popup')
-    togglePopup(target)
+    closePopup(target)
   })
 })
 
 profileEditButton.addEventListener('click', openEditProfile)
 
 buttonAddCard.addEventListener('click', () => {
-  togglePopup(popupAddingCardWindow)
+  openPopup(popupAddingCardWindow)
   newCardFormElement.reset()
 })
 
@@ -116,17 +121,17 @@ newCardFormElement.addEventListener('submit', addNewCard)
 
 const closeOverlay = (evt) => {
   if ((evt.target === evt.currentTarget)) {
-    togglePopup(evt.target)
+    closePopup(evt.target)
   }
 }
 
-popupOverlay.forEach((overlay) => {
+popupOverlays.forEach((overlay) => {
   overlay.addEventListener('click', closeOverlay)
 })
 
 document.addEventListener('keydown', (evt) => {
   const openedPopup = document.querySelector('.popup_opened')
   if (evt.key === 'Escape' && openedPopup) {
-    togglePopup(openedPopup)
+    closePopup(openedPopup)
   }
 })

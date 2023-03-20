@@ -8,6 +8,7 @@
   margin: 0;
   text-align: start;
   max-width: 294px;
+  min-width: 100px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

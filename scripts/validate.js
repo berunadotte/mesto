@@ -3,14 +3,6 @@ const domElements = {
   inputSelector: '.popup__input',
   submitButtonSelector: '.submit-button',
   inputErrorClass: 'popup__input_type_error',
-  profileButton: '.profile__edit-button',
-  editButton: '.popup__save-button',
-}
-
-const activeProfileEditSubmitButton = (config) => {
-  document.querySelector(config.profileButton).addEventListener('click', () => {
-    document.querySelector(config.editButton).removeAttribute('disabled')
-  })
 }
 
 const showInputError = (formElement, inputElement, errorMessage, config) => {
@@ -68,7 +60,6 @@ const setEventListeners = (formElement, config) => {
   )
   const buttonElement = formElement.querySelector(config.submitButtonSelector)
   toggleButtonState(inputList, buttonElement)
-  activeProfileEditSubmitButton(config)
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
       checkInputValidity(formElement, inputElement, config)

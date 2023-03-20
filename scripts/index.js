@@ -5,15 +5,15 @@ const popupOverlays = document.querySelectorAll('.popup')
 const buttonsClose = document.querySelectorAll('.popup__close-button')
 const profileEditButton = document.querySelector('.profile__edit-button')
 const popupEditProfileWindow = document.querySelector('.popup_edit-profile')
-const profileEditFormElement = document.querySelector(
-  '.popup__form_edit-profile'
-)
+const profileEditFormElement = document.querySelector('.popup__form_edit-profile')
 const buttonAddCard = document.querySelector('.profile__add-button')
 const popupAddingCardWindow = document.querySelector('.popup_new-card')
 const newCardFormElement = document.querySelector('.popup__form_new-card')
 const popupFullscreenImage = document.querySelector('.popup_image')
 const popupImage = document.querySelector('.popup__image')
 const popupImageLabel = document.querySelector('.popup__image-label')
+const popupEditProfileSubmitButton = document.querySelector('.popup__save-button')
+const popupNewCardSubmitButton = document.querySelector('.popup__create-button')
 
 const profileName = document.querySelector('.profile__title')
 const profileJob = document.querySelector('.profile__subtitle')
@@ -26,16 +26,19 @@ const toggleLike = (element) => {
   element.classList.toggle('card__like_active')
 }
 
-const closePopup = (popup) => {
-  popup.classList.remove('popup_opened')
-}
-
 const openPopup = (popup) => {
   popup.classList.add('popup_opened')
+  document.addEventListener('keydown', closedByEscape)
+}
+
+const closePopup = (popup) => {
+  popup.classList.remove('popup_opened')
+  document.removeEventListener('keydown', closedByEscape)
 }
 
 const openEditProfile = () => {
   // открытие попапа по нажатию на кнопку редактирования
+  popupEditProfileSubmitButton.removeAttribute('disabled')
   openPopup(popupEditProfileWindow)
   nameInput.value = profileName.textContent
   jobInput.value = profileJob.textContent
@@ -53,6 +56,7 @@ const submitProfileEdit = (evt) => {
 }
 
 const createCard = (cardName, cardLink) => {
+  popupNewCardSubmitButton.setAttribute('disabled', true)
   const newCard = cardsTemplate.querySelector('.card').cloneNode(true)
   const newCardImage = newCard.querySelector('.card__image')
   const newCardLabel = newCard.querySelector('.card__label')
@@ -79,8 +83,6 @@ const createCard = (cardName, cardLink) => {
     popupImage.alt = newCardLabel.textContent
     popupImageLabel.textContent = newCardLabel.textContent
   })
-  newCardFormElement.reset()
-
   return newCard
 }
 
@@ -90,15 +92,9 @@ initialCards.forEach((arrCardsElement) => {
 
 function addNewCard(evt) {
   evt.preventDefault()
-  initialCards[initialCards.length] = {
-    name: cardNameInput.value,
-    link: cardLinkInput.value,
-  }
   cardsList.prepend(createCard(cardNameInput.value, cardLinkInput.value))
-
-  enableValidation(domElements)
-
   closePopup(popupAddingCardWindow)
+  newCardFormElement.reset()
 }
 
 buttonsClose.forEach((closeBtn) => {
@@ -129,9 +125,9 @@ popupOverlays.forEach((overlay) => {
   overlay.addEventListener('click', closeOverlay)
 })
 
-document.addEventListener('keydown', (evt) => {
+function closedByEscape(evt) {
+  if (evt.key === 'Escape') {
   const openedPopup = document.querySelector('.popup_opened')
-  if (evt.key === 'Escape' && openedPopup) {
-    closePopup(openedPopup)
+  closePopup(openedPopup)
   }
-})
+}

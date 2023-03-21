@@ -56,7 +56,6 @@ const submitProfileEdit = (evt) => {
 }
 
 const createCard = (cardName, cardLink) => {
-  popupNewCardSubmitButton.setAttribute('disabled', true)
   const newCard = cardsTemplate.querySelector('.card').cloneNode(true)
   const newCardImage = newCard.querySelector('.card__image')
   const newCardLabel = newCard.querySelector('.card__label')
@@ -78,7 +77,7 @@ const createCard = (cardName, cardLink) => {
   })
 
   newCardImage.addEventListener('click', () => {
-    popupFullscreenImage.classList.add('popup_opened')
+    openPopup(popupFullscreenImage)
     popupImage.src = newCardImage.src
     popupImage.alt = newCardLabel.textContent
     popupImageLabel.textContent = newCardLabel.textContent
@@ -94,6 +93,7 @@ function addNewCard(evt) {
   evt.preventDefault()
   cardsList.prepend(createCard(cardNameInput.value, cardLinkInput.value))
   closePopup(popupAddingCardWindow)
+  popupNewCardSubmitButton.setAttribute('disabled', true)
   newCardFormElement.reset()
 }
 

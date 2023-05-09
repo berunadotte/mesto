@@ -1,76 +1,58 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-  },
-]
+import { popupNewCardSubmitButton, popupFullscreenImage, popupImage, popupImageLabel } from "./index.js"
 
-
-
-class Card {
+export default class Card {
   constructor(data){
     this._link = data.link
-    this._text = data.name
-  }
- 
-  view() {
-    console.log(this._link)
-    console.log(this._text)
+    this._name = data.name
+    this._newCard = document.querySelector('.cards__template').content.querySelector('.card').cloneNode(true)
+    this._newCardImage = this._newCard.querySelector('.card__image')
+    this._newCardLabel = this._newCard.querySelector('.card__label')
   }
 
+  _toggleLike(element) {
+   element.classList.toggle('card__like_active')
+  }
+
+  _likeButtonHandler() {
+    const newCardLikeButton = this._newCard.querySelector('.card__like-button')
+    const newCardLike = this._newCard.querySelector('.card__like')
+    newCardLikeButton.addEventListener('click', () => {
+      this._toggleLike(newCardLike)
+    })
+  }
+
+  _deleteButtonHandler() {
+    const newCardDeleteButton = this._newCard.querySelector('.card__delete-button')
+    newCardDeleteButton.addEventListener('click', (trash) => {
+      const trashTarget = trash.target.closest('.card')
+      trashTarget.remove()
+    })
+  }
+
+  _fullscreenHandler() {
+    this._newCardImage.addEventListener('click', () => {
+      popupFullscreenImage.classList.add('popup_opened')
+      popupImage.src = this._newCardImage.src
+      popupImage.alt = this._newCardLabel.textContent
+      popupImageLabel.textContent = this._newCardLabel.textContent
+    })
+  }
+
+  createCard() {
+    popupNewCardSubmitButton.setAttribute('disabled', true)
+    this._newCardImage.src = this._link
+    this._newCardImage.alt = this._name
+    this._newCardLabel.textContent = this._name
+
+    this._likeButtonHandler()
+    this._deleteButtonHandler()
+    this._fullscreenHandler()
+  
+    return this._newCard
+  }
 }
 
-const newCard = new Card (initialCards[1])
-
-newCard.view()
 
 
-// const createCard = (cardName, cardLink) => {
-//   const newCard = cardsTemplate.querySelector('.card').cloneNode(true)
-//   const newCardImage = newCard.querySelector('.card__image')
-//   const newCardLabel = newCard.querySelector('.card__label')
-//   const newCardLikeButton = newCard.querySelector('.card__like-button')
-//   const newCardLike = newCard.querySelector('.card__like')
-//   const newCardDeleteButton = newCard.querySelector('.card__delete-button')
 
-//   newCardImage.src = cardLink
-//   newCardImage.alt = cardName
-//   newCardLabel.textContent = cardName
 
-//   newCardLikeButton.addEventListener('click', () => {
-//     toggleLike(newCardLike)
-//   })
-
-//   newCardDeleteButton.addEventListener('click', (trash) => {
-//     const trashTarget = trash.target.closest('.card')
-//     trashTarget.remove()
-//   })
-
-//   newCardImage.addEventListener('click', () => {
-//     openPopup(popupFullscreenImage)
-//     popupImage.src = newCardImage.src
-//     popupImage.alt = newCardLabel.textContent
-//     popupImageLabel.textContent = newCardLabel.textContent
-//   })
-//   return newCard
-// }

@@ -59,15 +59,6 @@ buttonsClose.forEach((closeBtn) => {
   })
 })
 
-profileEditButton.addEventListener('click', openEditProfile)
-
-buttonAddCard.addEventListener('click', () => {
-  openPopup(popupAddingCardWindow)
-  newCardFormElement.reset()
-})
-
-profileEditFormElement.addEventListener('submit', submitProfileEdit)
-
 function addNewCard(evt) {
   evt.preventDefault()
   const newCardData = {name: cardNameInput.value, link: cardLinkInput.value}
@@ -79,6 +70,15 @@ function addNewCard(evt) {
 }
 
 newCardFormElement.addEventListener('submit', addNewCard)
+
+profileEditButton.addEventListener('click', openEditProfile)
+
+profileEditFormElement.addEventListener('submit', submitProfileEdit)
+
+buttonAddCard.addEventListener('click', () => {
+  openPopup(popupAddingCardWindow)
+  newCardFormElement.reset()
+})
 
 const closeOverlay = (evt) => {
   if ((evt.target === evt.currentTarget)) {

@@ -13,7 +13,7 @@ export default class Card {
    element.classList.toggle('card__like_active')
   }
 
-  _likeButtonHandler() {
+  _likeButtonListener() {
     const newCardLikeButton = this._newCard.querySelector('.card__like-button')
     const newCardLike = this._newCard.querySelector('.card__like')
     newCardLikeButton.addEventListener('click', () => {
@@ -21,7 +21,7 @@ export default class Card {
     })
   }
 
-  _deleteButtonHandler() {
+  _deleteButtonListener() {
     const newCardDeleteButton = this._newCard.querySelector('.card__delete-button')
     newCardDeleteButton.addEventListener('click', (trash) => {
       const trashTarget = trash.target.closest('.card')
@@ -29,7 +29,7 @@ export default class Card {
     })
   }
 
-  _fullscreenHandler() {
+  _fullscreenListener() {
     this._newCardImage.addEventListener('click', () => {
       popupFullscreenImage.classList.add('popup_opened')
       popupImage.src = this._newCardImage.src
@@ -44,9 +44,9 @@ export default class Card {
     this._newCardImage.alt = this._name
     this._newCardLabel.textContent = this._name
 
-    this._likeButtonHandler()
-    this._deleteButtonHandler()
-    this._fullscreenHandler()
+    this._likeButtonListener()
+    this._deleteButtonListener()
+    this._fullscreenListener()
   
     return this._newCard
   }

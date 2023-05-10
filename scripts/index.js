@@ -1,4 +1,5 @@
 import Card from './Card.js'
+import FormValidator from './FormValidator.js'
 import { initialCards } from './constants.js'
 
 const cardsList = document.querySelector('.cards__list')
@@ -102,3 +103,17 @@ initialCards.forEach((arrCardsElement) => {
   cardsList.append(newCard.createCard())
 })
 
+
+const validationConfig = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.submit-button',
+  inputErrorClass: 'popup__input_type_error',
+}
+
+const formEditProfile = document.querySelector('.popup__form_edit-profile')
+const formAddNewCard = document.querySelector('.popup__form_new-card')
+
+const newCardForm = new FormValidator(validationConfig, formAddNewCard)
+const editProfileForm = new FormValidator(validationConfig, formEditProfile)
+newCardForm.enableValidation()
+editProfileForm.enableValidation()

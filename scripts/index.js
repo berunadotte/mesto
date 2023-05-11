@@ -3,14 +3,10 @@ import FormValidator from './FormValidator.js'
 import { initialCards } from './constants.js'
 
 const cardsList = document.querySelector('.cards__list')
-const popupsOverlays = document.querySelectorAll('.popup')
-const closeButtons = document.querySelectorAll('.popup__close-button')
 const profileEditButton = document.querySelector('.profile__edit-button')
 const popupEditProfileWindow = document.querySelector('.popup_edit-profile')
 const buttonAddCard = document.querySelector('.profile__add-button')
 const popupAddingCardWindow = document.querySelector('.popup_new-card')
-const newCardFormElement = document.querySelector('.popup__form_new-card')
-const popupEditProfileSubmitButton = document.querySelector('.popup__save-button')
 const profileName = document.querySelector('.profile__title')
 const profileJob = document.querySelector('.profile__subtitle')
 const nameInput = document.querySelector('.popup__input_name-value')
@@ -23,12 +19,12 @@ const popupImageLabel = document.querySelector('.popup__image-label')
 const cardSelector = document.querySelector('.cards__template').content
 const formEditProfile = document.forms['popup__form_edit-profile']
 const formAddNewCard = document.forms['popup__form_new-card']
+const popups = document.querySelectorAll('.popup')
 
 const openPopup = (popup) => {
   popup.classList.add('popup_opened')
   document.addEventListener('keydown', closedByEscape)
-  newCardForm.resetValidation()
-  editProfileForm.resetValidation()
+  formValidators['popup__form_new-card'].resetValidation()
 }
 
 const closePopup = (popup) => {
@@ -36,21 +32,15 @@ const closePopup = (popup) => {
   document.removeEventListener('keydown', closedByEscape)
 }
 
-closeButtons.forEach((closeBtn) => {
-  closeBtn.addEventListener('click', (evt) => {
-    const target = evt.target.closest('.popup')
-    closePopup(target)
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+          closePopup(popup)
+      }
+      if (evt.target.classList.contains('popup__close-icon')) {
+        closePopup(popup)
+      }
   })
-})
-
-const closeOverlay = (evt) => {
-  if (evt.target === evt.currentTarget) {
-    closePopup(evt.target)
-  }
-}
-
-popupsOverlays.forEach((overlay) => {
-  overlay.addEventListener('click', closeOverlay)
 })
 
 function closedByEscape(evt) {
@@ -62,7 +52,7 @@ function closedByEscape(evt) {
 
 const openEditProfile = () => {
   // открытие попапа по нажатию на кнопку редактирования
-  // popupEditProfileSubmitButton.removeAttribute('disabled')
+  formValidators['popup__form_edit-profile'].resetValidation()
   openPopup(popupEditProfileWindow)
   nameInput.value = profileName.textContent
   jobInput.value = profileJob.textContent
@@ -79,29 +69,31 @@ const submitProfileEdit = (evt) => {
   // вызов функции закрытия формы
 }
 
-function createCard() {
-  const newCardData = { name: cardNameInput.value, link: cardLinkInput.value }
-  const newCard = new Card(newCardData, cardSelector, handleCardClick)
+function createCard(config) {
+  const newCard = new Card(config, cardSelector, handleCardClick)
   const cardElement = newCard.createCard()
   return cardElement
 }
 
 function addNewCard(evt) {
+  const newCardData = { name: cardNameInput.value, link: cardLinkInput.value }
   evt.preventDefault()
-  cardsList.prepend(createCard())
+  cardsList.prepend(createCard(newCardData))
   closePopup(popupAddingCardWindow)
-  newCardFormElement.reset()
+  formAddNewCard.reset()
+  formValidators['popup__form_new-card'].resetValidation()
 }
 
-initialCards.forEach((arrCardsElement) => {
-  const newCard = new Card(arrCardsElement, cardSelector, handleCardClick)
-  cardsList.append(newCard.createCard())
+initialCards.forEach((card) => {
+  const cardFromObj = createCard(card)
+  cardsList.append(cardFromObj)
 })
 
 const validationConfig = {
   inputSelector: '.popup__input',
   submitButtonSelector: '.submit-button',
   inputErrorClass: 'popup__input_type_error',
+  formSelector: '.popup__form'
 }
 
 function handleCardClick(name, link) {
@@ -111,15 +103,27 @@ function handleCardClick(name, link) {
   openPopup(popupFullscreenImage)
 }
 
-newCardFormElement.addEventListener('submit', addNewCard)
+formAddNewCard.addEventListener('submit', addNewCard)
 profileEditButton.addEventListener('click', openEditProfile)
 formEditProfile.addEventListener('submit', submitProfileEdit)
 buttonAddCard.addEventListener('click', () => {
   openPopup(popupAddingCardWindow)
-  newCardFormElement.reset()
+  formAddNewCard.reset()
 })
 
-const newCardForm = new FormValidator(validationConfig, formAddNewCard)
-const editProfileForm = new FormValidator(validationConfig, formEditProfile)
-newCardForm.enableValidation()
-editProfileForm.enableValidation()
+const formValidators = { }
+
+// Включение валидации
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement)
+// получаем данные из атрибута `name` у формы
+    const formName = formElement.getAttribute('name')
+   // вот тут в объект записываем под именем формы
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(validationConfig);

@@ -24,7 +24,6 @@ const popups = document.querySelectorAll('.popup')
 const openPopup = (popup) => {
   popup.classList.add('popup_opened')
   document.addEventListener('keydown', closedByEscape)
-  formValidators['popup__form_new-card'].resetValidation()
 }
 
 const closePopup = (popup) => {
@@ -108,7 +107,6 @@ profileEditButton.addEventListener('click', openEditProfile)
 formEditProfile.addEventListener('submit', submitProfileEdit)
 buttonAddCard.addEventListener('click', () => {
   openPopup(popupAddingCardWindow)
-  formAddNewCard.reset()
 })
 
 const formValidators = { }

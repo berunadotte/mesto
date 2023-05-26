@@ -1,11 +1,11 @@
-<script type="module" src="scripts/index.js"></script>
+{/* <script type="module" src="scripts/index.js"></script>
 <script type="module" src="scripts/constants.js"></script>
 <script type="module" src="scripts/Card.js"></script>
 <script type="module" src="scripts/FormValidator.js"></script>
 <script type="module" src="scripts/PopupWithForm.js"></script>
 <script type="module" src="scripts/PopupWithImage.js"></script>
 <script type="module" src="scripts/Section.js"></script>
-<script type="module" src="scripts/Popup.js"></script>
+<script type="module" src="scripts/Popup.js"></script> */}
 
 
 import Card from './Card.js'

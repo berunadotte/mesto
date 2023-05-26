@@ -1,6 +1,17 @@
+<script type="module" src="scripts/index.js"></script>
+<script type="module" src="scripts/constants.js"></script>
+<script type="module" src="scripts/Card.js"></script>
+<script type="module" src="scripts/FormValidator.js"></script>
+<script type="module" src="scripts/PopupWithForm.js"></script>
+<script type="module" src="scripts/PopupWithImage.js"></script>
+<script type="module" src="scripts/Section.js"></script>
+<script type="module" src="scripts/Popup.js"></script>
+
+
 import Card from './Card.js'
 import FormValidator from './FormValidator.js'
 import { initialCards } from './constants.js'
+import PopupWithForm from './PopupWithForm.js'
 
 const cardsList = document.querySelector('.cards__list')
 const profileEditButton = document.querySelector('.profile__edit-button')
@@ -88,13 +99,6 @@ initialCards.forEach((card) => {
   cardsList.append(cardFromObj)
 })
 
-const validationConfig = {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.submit-button',
-  inputErrorClass: 'popup__input_type_error',
-  formSelector: '.popup__form'
-}
-
 function handleCardClick(name, link) {
   popupImage.src = link
   popupImage.alt = name
@@ -108,6 +112,16 @@ formEditProfile.addEventListener('submit', submitProfileEdit)
 buttonAddCard.addEventListener('click', () => {
   openPopup(popupAddingCardWindow)
 })
+
+
+
+
+const validationConfig = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.submit-button',
+  inputErrorClass: 'popup__input_type_error',
+  formSelector: '.popup__form'
+}
 
 const formValidators = { }
 
@@ -125,3 +139,16 @@ const enableValidation = (config) => {
 };
 
 enableValidation(validationConfig);
+
+
+const addCardPopup = new PopupWithForm ('.popup_new-card', () => {
+
+})
+
+const editProfilePopup = new PopupWithForm ('.popup_edit-profile', () => {
+  evt.preventDefault()
+  profileName.textContent = editProfilePopup.inputValues.popup__name
+  profileJob.textContent = editProfilePopup.inputValues.popup__job
+  editProfilePopup.close()
+})
+

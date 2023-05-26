@@ -1,0 +1,33 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "educational project with yandex practicum",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack serve" ,
+    "build": "rm -rf dist && webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/berunadotte/mesto.git"
+  },
+  "keywords": [
+    "mesto",
+    "yandex",
+    "web",
+    "developer"
+  ],
+  "author": "DoriDori",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/berunadotte/mesto/issues"
+  },
+  "homepage": "https://github.com/berunadotte/mesto#readme",
+  "dependencies": {
+    "webpack": "^5.84.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.1.1",
+    "webpack-dev-server": "^4.15.0"
+  }
+}

@@ -4,19 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
-  <link rel="stylesheet" href="pages/index.css">
 </head>
 <body>
   <div class="root">
 
     <header class="header">
-      <img src="images/header_logo.svg" alt="Место Россия" class="header__logo">
+      <!-- <img src="./images/header_logo.svg" alt="Место Россия" class="header__logo"> -->
+      <img src=<%=require("./images/header_logo.svg")%> alt="Место Россия" class="header__logo">
+
     </header>
 
     <main class="main">
 
       <section class="profile">
-        <img src="images/avatar_photo.png" alt="аватарка пользователя" class="profile__avatar">
+        <!-- <img src="././images/avatar_photo.png" alt="аватарка пользователя" class="profile__avatar"> -->
+        <img src=<%=require("./images/avatar_photo.png")%> alt="аватарка пользователя" class="profile__avatar">
+
           <div class="profile__info">
            <h1 class="profile__title">Жак-Ив Кусто</h1>
            
@@ -35,7 +38,9 @@
                <div class="card__container">
                 <h2 class="card__label"></h2>
                 <button type="button" class="card__like-button">
-                  <img src="images/like_button.svg" alt="лайк" class="card__like">
+                  <!-- <img src="./images/like_button.svg" alt="лайк" class="card__like"> -->
+                  <img src=<%=require("./images/like_button.svg")%> alt="лайк" class="card__like">
+                  
                 </button>
                </div> 
                <button class="card__delete-button">
@@ -61,7 +66,9 @@
           <button type="submit" class="popup__save-button submit-button">Сохранить</button>
         </form>
         <button type="button" class="popup__close-button">
-          <img src="images/popup_close_button.svg" alt="кнопка закрытия" class="popup__close-icon">
+          <!-- <img src="./images/popup_close_button.svg" alt="кнопка закрытия" class="popup__close-icon"> -->
+          <img src=<%=require("./images/popup_close_button.svg")%> alt="кнопка закрытия" class="popup__close-icon">
+
         </button>
       </div>
     </div>
@@ -77,21 +84,38 @@
           <button type="submit" class="popup__create-button submit-button">Создать</button>
         </form>
         <button type="button" class="popup__close-button">
-          <img src="images/popup_close_button.svg" alt="кнопка закрытия" class="popup__close-icon">
+          <!-- <img src="./images/popup_close_button.svg" alt="кнопка закрытия" class="popup__close-icon"> -->
+          <img src=<%=require("./images/popup_close_button.svg")%> alt="кнопка закрытия" class="popup__close-icon">
+
         </button>
       </div>
     </div>
 
     <div class="popup popup_image">
       <div class="popup__image-container">
-        <img src="images/null.svg" alt="undefined" class="popup__image">
+        <!-- <img src="./images/null.svg" alt="undefined" class="popup__image"> -->
+        <img src=<%=require("./images/null.svg")%> alt="undefined" class="popup__image">
+
         <p class="popup__image-label"></p>
         <button type="button" class="popup__close-button">
-          <img src="images/popup_close_button.svg" alt="кнопка закрытия" class="popup__close-icon">
+          <!-- <img src="./images/popup_close_button.svg" alt="кнопка закрытия" class="popup__close-icon"> -->
+          <img src=<%=require("./images/popup_close_button.svg")%> alt="кнопка закрытия" class="popup__close-icon">
+
         </button>
       </div>
     </div>
-
   </div>
+  <!-- <script type="module" src="./index.js"></script>
+  <script type="module" src="./Card.js"></script>
+  <script type="module" src="./FormValidator.js"></script>
+  <script type="module" src="./constants.js"></script> -->
+
 </body>
 </html>
+
+
+<!-- <img src=<%=require("./images/header_logo.svg")%> alt="Место Россия" class="header__logo"> -->
+<!-- <img src=<%=require("./images/avatar_photo.png")%> alt="аватарка пользователя" class="profile__avatar"> -->
+<!-- <img src=<%=require("./images/like_button.svg")%> alt="лайк" class="card__like"> -->
+<!-- <img src=<%=require("./images/popup_close_button.svg")%> alt="кнопка закрытия" class="popup__close-icon"> -->
+<!-- <img src=<%=require("./images/null.svg")%> alt="undefined" class="popup__image"> -->

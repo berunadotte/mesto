@@ -4,8 +4,8 @@
   "description": "educational project with yandex practicum",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack serve" ,
-    "build": "rm -rf dist && webpack"
+    "dev": "webpack serve",
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -24,9 +24,20 @@
   },
   "homepage": "https://github.com/berunadotte/mesto#readme",
   "dependencies": {
+    "core-js": "^3.30.2",
     "webpack": "^5.84.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.22.1",
+    "@babel/preset-env": "^7.22.2",
+    "autoprefixer": "^10.4.14",
+    "babel-loader": "^9.1.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.8.1",
+    "cssnano": "^6.0.1",
+    "html-webpack-plugin": "^5.5.1",
+    "mini-css-extract-plugin": "^2.7.6",
+    "postcss-loader": "^7.3.2",
     "webpack-cli": "^5.1.1",
     "webpack-dev-server": "^4.15.0"
   }

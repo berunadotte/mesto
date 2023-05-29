@@ -1,7 +1,33 @@
+
 import Card from './Card.js'
 import FormValidator from './FormValidator.js'
 import { initialCards } from './constants.js'
 import PopupWithForm from './PopupWithForm.js'
+import './pages/index.css';
+
+
+const addButtonImage = new URL('./images/add_button_image.svg', import.meta.url);
+// const avatarImage = new URL('./images/avatar_photo.png', import.meta.url);
+const deleteButtonImage = new URL('./images/delete-button_icon.svg', import.meta.url);
+// const headerLogoImage = new URL('./images/header_logo.svg', import.meta.url);
+// const likeButtonImage = new URL('./images/like_button.svg', import.meta.url);
+const activeLikeButtonImage = new URL('./images/like_button_active.svg', import.meta.url);
+// const nullImage = new URL('./images/null.svg', import.meta.url);
+// const closeButtonImage = new URL('./images/popup_close_button.svg', import.meta.url);
+const editButtonImage = new URL('./images/profile__edit-button.svg', import.meta.url);
+
+
+const images = [
+  { name: 'add_button_image', image: addButtonImage },
+  // { name: 'avatar_photo', link: avatarImage },
+  { name: 'delete-button_icon', link: deleteButtonImage },
+  // { name: 'header_logo', link: headerLogoImage },
+  // { name: 'like_button', link: likeButtonImage },
+  { name: 'like_button_active', link: activeLikeButtonImage },
+  // { name: 'null', link: nullImage },
+  // { name: 'popup_close_button', link: closeButtonImage },
+  { name: 'profile__edit', link: editButtonImage },
+]; 
 
 const cardsList = document.querySelector('.cards__list')
 const profileEditButton = document.querySelector('.profile__edit-button')

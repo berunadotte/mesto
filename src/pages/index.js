@@ -1,16 +1,16 @@
 import Card from '../components/Card.js'
-import FormValidator from '../FormValidator.js'
+import FormValidator from '../components/FormValidator.js'
 import { initialCards } from '../constants.js'
-import PopupWithForm from '../PopupWithForm.js'
-import PopupWithImage from '../PopupWithImage.js'
-import UserInfo from '../UserInfo.js'
-import Section from '../Section.js'
-import './pages/index.css'
+import PopupWithForm from '../components/PopupWithForm.js'
+import PopupWithImage from '../components/PopupWithImage.js'
+import UserInfo from '../components/UserInfo.js'
+import Section from '../components/Section.js'
+import './index.css'
 
-const addButtonImage = new URL('./images/add_button_image.svg', import.meta.url)
-const deleteButtonImage = new URL('./images/delete-button_icon.svg', import.meta.url)
-const activeLikeButtonImage = new URL('./images/like_button_active.svg', import.meta.url)
-const editButtonImage = new URL('./images/profile__edit-button.svg', import.meta.url)
+const addButtonImage = new URL('../images/add_button_image.svg', import.meta.url)
+const deleteButtonImage = new URL('../images/delete-button_icon.svg', import.meta.url)
+const activeLikeButtonImage = new URL('../images/like_button_active.svg', import.meta.url)
+const editButtonImage = new URL('../images/profile__edit-button.svg', import.meta.url)
 
 const images = [
   { name: 'add_button_image', image: addButtonImage },

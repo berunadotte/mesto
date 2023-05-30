@@ -1,5 +1,6 @@
 export default class Card {
   constructor(data, cardSelector, handleCardClick) {
+    this._data = data
     this._link = data.link
     this._name = data.name
     this._newCard = cardSelector.querySelector('.card').cloneNode(true)

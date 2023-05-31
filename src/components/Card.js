@@ -7,10 +7,11 @@ export default class Card {
     this._newCardImage = this._newCard.querySelector('.card__image')
     this._newCardLabel = this._newCard.querySelector('.card__label')
     this._handleCardClick = handleCardClick
+    this._buttonLike = this._newCard.querySelector('.card__like')
   }
 
-  _toggleLike(element) {
-    element.classList.toggle('card__like_active')
+  _toggleLike() {
+    this._buttonLike.classList.toggle('card__like_active')
   }
 
   _setEventListeners() {
@@ -19,15 +20,12 @@ export default class Card {
     })
 
     const newCardDeleteButton = this._newCard.querySelector('.card__delete-button')
-    newCardDeleteButton.addEventListener('click', (trash) => {
-      const trashTarget = trash.target.closest('.card')
-      trashTarget.remove()
+    newCardDeleteButton.addEventListener('click', () => {
+      this._newCard.remove() 
     })
 
-    const newCardLikeButton = this._newCard.querySelector('.card__like-button')
-    const newCardLike = this._newCard.querySelector('.card__like')
-    newCardLikeButton.addEventListener('click', () => {
-      this._toggleLike(newCardLike)
+    this._buttonLike.addEventListener('click', () => {
+      this._toggleLike()
     })
   }
 

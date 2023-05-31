@@ -5,10 +5,10 @@ export default class PopupWithForm extends Popup {
     super(popupSelector)
     this._form = this._popup.querySelector('.popup__form')
     this._formSubmitHandler = formSubmitHandler
+    this._inputList = this._form.querySelectorAll('.popup__input')
   }
 
   _getInputValues() {
-    this._inputList = this._form.querySelectorAll('.popup__input')
     this._formValues = {}
     const nameMapping = {
       'popup__card_name': 'name',
@@ -35,7 +35,6 @@ export default class PopupWithForm extends Popup {
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault()
       this._formSubmitHandler(this._getInputValues())
-      this.close()
     })
   }
 }

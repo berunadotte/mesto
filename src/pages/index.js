@@ -46,6 +46,7 @@ const popupProfile = new PopupWithForm(selectors.popupEditProfile, (data) => {
     name: data.name,
     info: data.job,
   })
+  popupProfile.close()
 })
 popupProfile.setEventListeners()
 
@@ -55,6 +56,7 @@ popupWithImage.setEventListeners()
 const popupAddCard = new PopupWithForm(selectors.popupNewCard, (data) => {
   const newCard = createCard(data)
   cardSection.addItem(newCard)
+  popupAddCard.close()
 })
 popupAddCard.setEventListeners()
 

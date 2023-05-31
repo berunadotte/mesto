@@ -1,45 +1,11 @@
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
-import { initialCards } from '../constants.js'
+import { initialCards, profileEditButton, nameInput, jobInput, cardTemplate, buttonAddCard, selectors  } from '../utils/constants.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import UserInfo from '../components/UserInfo.js'
 import Section from '../components/Section.js'
 import './index.css'
-
-const addButtonImage = new URL('../images/add_button_image.svg', import.meta.url)
-const deleteButtonImage = new URL('../images/delete-button_icon.svg', import.meta.url)
-const activeLikeButtonImage = new URL('../images/like_button_active.svg', import.meta.url)
-const editButtonImage = new URL('../images/profile__edit-button.svg', import.meta.url)
-
-const images = [
-  { name: 'add_button_image', image: addButtonImage },
-  { name: 'delete-button_icon', link: deleteButtonImage },
-  { name: 'like_button_active', link: activeLikeButtonImage },
-  { name: 'profile__edit', link: editButtonImage },
-]
-
-const selectors = {
-  cardsList: '.cards__list',
-  profileEditButton: '.profile__edit-button',
-  popupEditProfile: '.popup_edit-profile',
-  buttonAddCard: '.profile__add-button',
-  popupNewCard: '.popup_new-card',
-  profileTitle: '.profile__title',
-  profileSubtitle: '.profile__subtitle',
-  popupInputNameValue: '.popup__input_name-value',
-  popupInputJobValue: '.popup__input_job-value',
-  cardTemplate: '.cards__template',
-  popupFormEditProfile: 'popup__form_edit-profile',
-  popupFormNewCard: 'popup__form_new-card',
-  popupImage: '.popup_image',
-}
-
-const profileEditButton = document.querySelector(selectors.profileEditButton)
-const nameInput = document.querySelector(selectors.popupInputNameValue)
-const jobInput = document.querySelector(selectors.popupInputJobValue)
-const cardTemplate = document.querySelector(selectors.cardTemplate).content
-const buttonAddCard = document.querySelector(selectors.buttonAddCard)
 
 const cardSection = new Section(
   {

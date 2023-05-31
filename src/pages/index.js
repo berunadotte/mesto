@@ -9,7 +9,6 @@ import './index.css'
 
 const cardSection = new Section(
   {
-    items: initialCards,
     renderer: (item) => {
       const cardElement = createCard(item)
       cardSection.addItem(cardElement)
@@ -17,7 +16,7 @@ const cardSection = new Section(
   },
   selectors.cardsList
 )
-cardSection.renderItems()
+cardSection.renderItems(initialCards)
 
 function createCard(cardData) {
   const newCard = new Card(cardData, cardTemplate, (name, link) => {
@@ -78,7 +77,6 @@ function enableFormValidation() {
   formList.forEach((formElement) => {
     const validator = new FormValidator(config, formElement)
     const formName = formElement.getAttribute('name')
-    console.log(formName)
     formValidators[formName] = validator
     validator.enableValidation()
   })

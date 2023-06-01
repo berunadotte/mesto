@@ -21,12 +21,17 @@ export default class Card {
 
     const newCardDeleteButton = this._newCard.querySelector('.card__delete-button')
     newCardDeleteButton.addEventListener('click', () => {
-      this._newCard.remove() 
+    this._removeCard()
     })
 
     this._buttonLike.addEventListener('click', () => {
       this._toggleLike()
     })
+  }
+
+  _removeCard() {
+    this._newCard.remove()
+    this._newCard = null 
   }
 
   createCard() {

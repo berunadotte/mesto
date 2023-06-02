@@ -85,3 +85,17 @@ function enableFormValidation() {
 }
 
 enableFormValidation()
+
+fetch('https://nomoreparties.co/v1/cohort-66/users/me', {
+  headers: {
+    authorization: '432e3bdb-dcc8-4c2f-864d-6bca425811a2'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    const name = result.name
+    const info = result.about
+    userInfo.setUserInfo({ name, info})
+  });
+  
+  

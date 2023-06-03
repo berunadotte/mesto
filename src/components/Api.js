@@ -5,46 +5,55 @@ export default class Api {
 
   loadNameAndInfo(callback) {
     fetch('https://nomoreparties.co/v1/cohort-66/users/me', {
-  headers: {
-    authorization: this._token
-  }
-})
-  .then(res => res.json())
-  .then((result) => {
-      callback(result)
-  });
+      headers: {
+        authorization: this._token,
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        callback(result)
+      })
   }
 
   getInitialCards(renderer) {
     fetch('https://mesto.nomoreparties.co/v1/cohort-66/cards', {
       headers: {
-        authorization: this._token
-      }
+        authorization: this._token,
+      },
     })
-    .then(res => res.json())
-    .then((result) => {
-      renderer(result)
+      .then((res) => res.json())
+      .then((result) => {
+        renderer(result)
+      })
+  }
+
+  changeNameAndInfo(nameValue, infoValue) {
+    fetch('https://mesto.nomoreparties.co/v1/cohort-66/users/me', {
+      method: 'PATCH',
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: nameValue,
+        about: infoValue,
+      }),
     })
   }
 
-
-  changeNameAndInfo( nameValue, infoValue ) {
-  fetch('https://mesto.nomoreparties.co/v1/cohort-66/users/me', {
-  method: 'PATCH',
-  headers: {
-    authorization: this._token,
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    name: nameValue,
-    about: infoValue
-  })
-})
-}
-
-
-
-
+  addNewCardToServer(data) {
+    fetch('https://mesto.nomoreparties.co/v1/cohort-66/cards', {
+      method: 'POST',
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link,
+      }),
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    })
+  }
 
   // check() {
   //   console.log(initialCards)

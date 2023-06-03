@@ -56,7 +56,8 @@ popupWithImage.setEventListeners()
 
 const popupAddCard = new PopupWithForm(selectors.popupNewCard, (data) => {
   const newCard = createCard(data)
-  cardSection.addItem(newCard)
+  yandexApi.addNewCardToServer(data)
+  cardSection.addItemToStart(newCard)
   popupAddCard.close()
 })
 popupAddCard.setEventListeners()
@@ -104,9 +105,6 @@ cardSection.renderItems(arrCards)
 })
 
 
-// console.log(userInfo.getUserInfo())
-
-// yandexApi.changeNameAndInfo(UserInfo.getUserInfo())
 
 // yandexApi.check()
   

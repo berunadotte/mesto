@@ -3,7 +3,7 @@ export default class Api {
     this._token = '432e3bdb-dcc8-4c2f-864d-6bca425811a2'
   }
 
-  changeNameAndInfo(callback) {
+  loadNameAndInfo(callback) {
     fetch('https://nomoreparties.co/v1/cohort-66/users/me', {
   headers: {
     authorization: this._token
@@ -26,6 +26,21 @@ export default class Api {
       renderer(result)
     })
   }
+
+
+  changeNameAndInfo( nameValue, infoValue ) {
+  fetch('https://mesto.nomoreparties.co/v1/cohort-66/users/me', {
+  method: 'PATCH',
+  headers: {
+    authorization: this._token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: nameValue,
+    about: infoValue
+  })
+})
+}
 
 
 

@@ -8,6 +8,7 @@ export default class Card {
     this._newCardLabel = this._newCard.querySelector('.card__label')
     this._handleCardClick = handleCardClick
     this._buttonLike = this._newCard.querySelector('.card__like')
+    this._likeCounter = this._newCard.querySelector('.card__like_count')
   }
 
   _toggleLike() {
@@ -35,12 +36,20 @@ export default class Card {
   }
 
   createCard() {
+ 
     this._newCardImage.src = this._link
     this._newCardImage.alt = this._name
     this._newCardLabel.textContent = this._name
 
     this._setEventListeners()
 
+    this._updateLikes()
+
     return this._newCard
   }
+
+  _updateLikes() {
+    if (this._data.likes != undefined ) {
+    this._likeCounter.textContent = this._data.likes.length
+  }}
 }

@@ -1,6 +1,6 @@
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
-import { initialCards, profileEditButton, nameInput, jobInput, cardTemplate, buttonAddCard, selectors  } from '../utils/constants.js'
+import {  likesCounters, profileEditButton, nameInput, jobInput, cardTemplate, buttonAddCard, selectors  } from '../utils/constants.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import UserInfo from '../components/UserInfo.js'
@@ -103,6 +103,8 @@ yandexApi.loadNameAndInfo((result) => {
 yandexApi.getInitialCards((arrCards) => {
 cardSection.renderItems(arrCards)
 })
+
+
 
 
 

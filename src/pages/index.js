@@ -7,6 +7,8 @@ import UserInfo from '../components/UserInfo.js'
 import Section from '../components/Section.js'
 import './index.css'
 
+import Api from '../components/Api.js'
+
 const cardSection = new Section(
   {
     renderer: (item) => {
@@ -16,7 +18,7 @@ const cardSection = new Section(
   },
   selectors.cardsList
 )
-cardSection.renderItems(initialCards)
+// cardSection.renderItems(initialCards)
 
 function createCard(cardData) {
   const newCard = new Card(cardData, cardTemplate, (name, link) => {
@@ -86,16 +88,23 @@ function enableFormValidation() {
 
 enableFormValidation()
 
-fetch('https://nomoreparties.co/v1/cohort-66/users/me', {
-  headers: {
-    authorization: '432e3bdb-dcc8-4c2f-864d-6bca425811a2'
-  }
+
+
+//==============================================================================================================
+
+const yandexApi = new Api()
+
+yandexApi.changeNameAndInfo((result) => {
+  const name = result.name
+  const info = result.about
+  userInfo.setUserInfo({ name, info})
 })
-  .then(res => res.json())
-  .then((result) => {
-    const name = result.name
-    const info = result.about
-    userInfo.setUserInfo({ name, info})
-  });
+
+yandexApi.getInitialCards((arrCards) => {
+cardSection.renderItems(arrCards)
+})
+
+
+// yandexApi.check()
   
   

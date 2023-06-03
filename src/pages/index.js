@@ -1,12 +1,15 @@
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
-import {  likesCounters, profileEditButton, nameInput, jobInput, cardTemplate, buttonAddCard, selectors  } from '../utils/constants.js'
+import { profileEditButton, nameInput, jobInput, cardTemplate, buttonAddCard, selectors } from '../utils/constants.js'
+import Popup from '../components/Popup.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import UserInfo from '../components/UserInfo.js'
 import Section from '../components/Section.js'
 import './index.css'
 import Api from '../components/Api.js'
+// import PopupConfirmationDelete from '../components/PopupConfirmationDelete.js'
+
 
 const cardSection = new Section(
   {
@@ -104,10 +107,9 @@ yandexApi.getInitialCards((arrCards) => {
 cardSection.renderItems(arrCards)
 })
 
+// const popupDeletingCard = new PopupConfirmationDelete(selectors.popupDeletingCard, (() => {
+//   popupDeletingCard.setEventListeners()
+// }))
 
-
-
-
-// yandexApi.check()
-  
-  
+// popupDeletingCard.open()
+// popupDeletingCard.setEventListeners()

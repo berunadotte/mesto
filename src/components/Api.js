@@ -55,7 +55,4 @@ export default class Api {
     })
   }
 
-  // check() {
-  //   console.log(initialCards)
-  // }
 }

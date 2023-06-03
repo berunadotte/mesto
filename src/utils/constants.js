@@ -24,6 +24,7 @@ export const selectors = {
   popupFormEditProfile: 'popup__form_edit-profile',
   popupFormNewCard: 'popup__form_new-card',
   popupImage: '.popup_image',
+  popupDeletingCard: '.popup_before_deleting'
 }
 
 export const profileEditButton = document.querySelector(selectors.profileEditButton)
@@ -31,17 +32,5 @@ export const nameInput = document.querySelector(selectors.popupInputNameValue)
 export const jobInput = document.querySelector(selectors.popupInputJobValue)
 export const cardTemplate = document.querySelector(selectors.cardTemplate).content
 export const buttonAddCard = document.querySelector(selectors.buttonAddCard)
-
-// document.addEventListener('keydown', (evt) => {
-//     if (evt.key === 'g') {
-//       const likesCounters = document.querySelectorAll(selectors.likeCounter)
-//       Array.from(likesCounters).forEach((counter) => {
-//         counter.textContent = '7'
-//         console.log(counter.textContent)
-//       })
-//     // console.log(Array.from(likesCounters)) 
-//     // console.log(document.querySelectorAll(selectors.likeCounter) )
-//   }
-// });
 
 

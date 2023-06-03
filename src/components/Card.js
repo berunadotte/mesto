@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, cardSelector, handleCardClick) {
+  constructor(data, cardSelector, handleCardClick, popupDeletingCard) {
     this._data = data
     this._link = data.link
     this._name = data.name
@@ -9,6 +9,7 @@ export default class Card {
     this._handleCardClick = handleCardClick
     this._buttonLike = this._newCard.querySelector('.card__like')
     this._likeCounter = this._newCard.querySelector('.card__like_count')
+    this._popupDeletingCard = popupDeletingCard
   }
 
   _toggleLike() {
@@ -23,7 +24,7 @@ export default class Card {
     const newCardDeleteButton = this._newCard.querySelector('.card__delete-button')
     newCardDeleteButton.addEventListener('click', () => {
     // this._removeCard()
-    console.log('chto to')
+    this._popupDeletingCard.open(this)
     })
 
     this._buttonLike.addEventListener('click', () => {

@@ -8,7 +8,7 @@ import UserInfo from '../components/UserInfo.js'
 import Section from '../components/Section.js'
 import './index.css'
 import Api from '../components/Api.js'
-// import PopupConfirmationDelete from '../components/PopupConfirmationDelete.js'
+import PopupConfirmationDelete from '../components/PopupConfirmationDelete.js'
 
 
 const cardSection = new Section(
@@ -24,7 +24,7 @@ const cardSection = new Section(
 function createCard(cardData) {
   const newCard = new Card(cardData, cardTemplate, (name, link) => {
     popupWithImage.open(link, name)
-  })
+  }, popupDeletingCard)
   const cardElement = newCard.createCard()
   return cardElement
 }
@@ -107,9 +107,7 @@ yandexApi.getInitialCards((arrCards) => {
 cardSection.renderItems(arrCards)
 })
 
-// const popupDeletingCard = new PopupConfirmationDelete(selectors.popupDeletingCard, (() => {
-//   popupDeletingCard.setEventListeners()
-// }))
-
-// popupDeletingCard.open()
-// popupDeletingCard.setEventListeners()
+const popupDeletingCard = new PopupConfirmationDelete(selectors.popupDeletingCard, ((card) => {
+  card._removeCard();
+}))
+popupDeletingCard.setEventListeners()

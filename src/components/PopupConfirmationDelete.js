@@ -1,16 +1,26 @@
-// import Popup from "./Popup";
+import Popup from "./Popup";
 
-// export default class PopupConfirmationDelete extends Popup {
-//   constructor(popupSelector, callback) {
-//     super(popupSelector)
-//     this._deleteButton = document.querySelector(popupSelector).querySelector('.popup__close-icon')
-//     // this._callback = callback
-//   }
+export default class PopupConfirmationDelete extends Popup {
+  constructor(popupSelector, callback) {
+    super(popupSelector);
+    this._callback = callback;
+    this._deleteButton = this._popup.querySelector('.submit-button');
+  }
 
+  setEventListeners() {
+    super.setEventListeners();
+    this._deleteButton.addEventListener('click', () => {
+      this.confirm();
+      this.close();
+    });
+  }
 
-//   openPopup(callback) {
-//     callback()
-//   }
+  open(card) {
+    this._card = card;
+    super.open();
+  }
 
-//   openPopup()
-// }
+  confirm() {
+    this._callback(this._card);
+  }
+}

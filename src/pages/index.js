@@ -24,14 +24,41 @@ const cardSection = new Section(
 function createCard(cardData) {
   const newCard = new Card(cardData, cardTemplate, (name, link) => {
     popupWithImage.open(link, name)
-  }, popupDeletingCard)
-  const cardElement = newCard.createCard()
+  }, popupDeletingCard, (card) => {
+    // console.log(`${userInfo._id} -- ${card._ownerId}`)
+    return userInfo._id == card._ownerId
+  }, (card) => {
+    if (card._isLiked)
+      yandexApi.removeLike(card._id)
+        .then((data) => {
+          card._updateLikes(data, userInfo._id)
+        })
+        .catch((err) => {
+          console.log(err); // выведем ошибку в консоль
+        });
+    else yandexApi.addLike(card._id)
+      .then((data) => {
+        card._updateLikes(data, userInfo._id)
+      })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });
+  }
+  )
+  const cardElement = newCard.createCard(userInfo._id)
   return cardElement
 }
 
 const userInfo = new UserInfo({
   nameSelector: selectors.profileTitle,
   infoSelector: selectors.profileSubtitle,
+  avatarSelector: selectors.profileAvatar,
+  avatarImgSelector: selectors.profileAvatarImg,
+  onAvatarClick: () => {
+    console.log(1234)
+    popupUpdateAvatar.open();
+    formValidators[selectors.popupFormUpdateAvatar].resetValidation();
+  }
 })
 
 const openEditProfile = () => {
@@ -50,7 +77,14 @@ const popupProfile = new PopupWithForm(selectors.popupEditProfile, (data) => {
     info: data.job,
   })
   yandexApi.changeNameAndInfo(data.name, data.job)
-  popupProfile.close()
+  
+  return yandexApi.changeNameAndInfo(data.name, data.job)
+  .then((result) => {
+    popupProfile.close()
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  });
 })
 popupProfile.setEventListeners()
 
@@ -58,10 +92,15 @@ const popupWithImage = new PopupWithImage(selectors.popupImage)
 popupWithImage.setEventListeners()
 
 const popupAddCard = new PopupWithForm(selectors.popupNewCard, (data) => {
-  const newCard = createCard(data)
-  yandexApi.addNewCardToServer(data)
-  cardSection.addItemToStart(newCard)
-  popupAddCard.close()
+  return yandexApi.addNewCardToServer(data)
+    .then((createdCard) => {
+      const newCard = createCard(createdCard)
+      cardSection.addItemToStart(newCard)
+      popupAddCard.close()
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
 })
 popupAddCard.setEventListeners()
 
@@ -79,6 +118,20 @@ const config = {
 
 const formValidators = {}
 
+const popupUpdateAvatar = new PopupWithForm(selectors.popupUpdateAvatar, (data) => {
+  return yandexApi.updateAvatar(data.link)
+    .then(() => {
+      userInfo.setUserAvatar(data.link)
+      popupUpdateAvatar.close();
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
+});
+popupUpdateAvatar.setEventListeners();
+
+
+
 function enableFormValidation() {
   const formList = Array.from(document.querySelectorAll(config.formSelector))
   formList.forEach((formElement) => {
@@ -95,19 +148,39 @@ enableFormValidation()
 
 //==============================================================================================================
 
-const yandexApi = new Api()
+const options = {
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
+  headers: {
+    authorization: '432e3bdb-dcc8-4c2f-864d-6bca425811a2',
+    'Content-Type': 'application/json; charset=UTF-8',
+  },
+}
+const yandexApi = new Api(options)
 
-yandexApi.loadNameAndInfo((result) => {
-  const name = result.name
-  const info = result.about
-  userInfo.setUserInfo({ name, info})
-})
 
-yandexApi.getInitialCards((arrCards) => {
-cardSection.renderItems(arrCards)
-})
+yandexApi.loadNameAndInfo()
+  .then((result) => {
+    const name = result.name
+    const info = result.about
+    const id = result._id
+    const avatar = result.avatar
+    userInfo.setUserInfo({ name, info, id })
+    userInfo.setUserAvatar(avatar)
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  });
+
+yandexApi.getInitialCards()
+  .then((arrCards) => {
+    cardSection.renderItems(arrCards)
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  });
 
 const popupDeletingCard = new PopupConfirmationDelete(selectors.popupDeletingCard, ((card) => {
+  yandexApi.removeCard(card._id)
   card._removeCard();
 }))
 popupDeletingCard.setEventListeners()

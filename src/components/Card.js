@@ -1,8 +1,13 @@
 export default class Card {
-  constructor(data, cardSelector, handleCardClick, popupDeletingCard) {
+  constructor(data, cardSelector, handleCardClick, popupDeletingCard, checkOwner, toggleLike) {
     this._data = data
     this._link = data.link
     this._name = data.name
+    this._ownerId = data.owner._id
+    this._checkOwner = checkOwner
+    this._id = data._id
+    this._isLiked = false
+    this._toggleLike = toggleLike
     this._newCard = cardSelector.querySelector('.card').cloneNode(true)
     this._newCardImage = this._newCard.querySelector('.card__image')
     this._newCardLabel = this._newCard.querySelector('.card__label')
@@ -12,46 +17,51 @@ export default class Card {
     this._popupDeletingCard = popupDeletingCard
   }
 
-  _toggleLike() {
-    this._buttonLike.classList.toggle('card__like_active')
-  }
-
   _setEventListeners() {
     this._newCardImage.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link)
     })
 
     const newCardDeleteButton = this._newCard.querySelector('.card__delete-button')
-    newCardDeleteButton.addEventListener('click', () => {
-    // this._removeCard()
-    this._popupDeletingCard.open(this)
-    })
+    if (this._checkOwner(this)) {
+      newCardDeleteButton.addEventListener('click', () => {
+        this._popupDeletingCard.open(this)
+      })
+    }
+    else {
+      newCardDeleteButton.classList.add('card__delete-button_disabled');
+    }
 
     this._buttonLike.addEventListener('click', () => {
-      this._toggleLike()
+      this._toggleLike(this)
     })
   }
 
   _removeCard() {
     this._newCard.remove()
-    this._newCard = null 
+    this._newCard = null
   }
 
-  createCard() {
- 
+  createCard(userId) {
+
     this._newCardImage.src = this._link
     this._newCardImage.alt = this._name
     this._newCardLabel.textContent = this._name
 
     this._setEventListeners()
 
-    this._updateLikes()
+    this._updateLikes(this._data, userId)
 
     return this._newCard
   }
 
-  _updateLikes() {
-    if (this._data.likes != undefined ) {
-    this._likeCounter.textContent = this._data.likes.length
-  }}
+  _updateLikes(data, userId) {
+    if (data.likes != undefined) {
+      this._likeCounter.textContent = data.likes.length;
+      this._isLiked = data.likes.some(like => like._id === userId);
+      // console.log (this._isLiked)
+      if (this._isLiked) this._buttonLike.classList.add('card__like_active')
+      else this._buttonLike.classList.remove('card__like_active')
+    }
+  }
 }

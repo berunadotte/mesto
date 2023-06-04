@@ -1,58 +1,93 @@
 export default class Api {
-  constructor() {
-    this._token = '432e3bdb-dcc8-4c2f-864d-6bca425811a2'
+  constructor(options) {
+    this._baseUrl = options.baseUrl;
+    this._headers = options.headers;
   }
 
-  loadNameAndInfo(callback) {
-    fetch('https://nomoreparties.co/v1/cohort-66/users/me', {
-      headers: {
-        authorization: this._token,
-      },
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        callback(result)
-      })
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+
+    return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getInitialCards(renderer) {
-    fetch('https://mesto.nomoreparties.co/v1/cohort-66/cards', {
-      headers: {
-        authorization: this._token,
-      },
+  loadNameAndInfo() {
+    return fetch(`${this._baseUrl}/users/me`, {
+      headers: this._headers,
     })
-      .then((res) => res.json())
-      .then((result) => {
-        renderer(result)
-      })
+      .then(this._checkResponse)
+      ;
+  }
+
+  getInitialCards() {
+    return fetch(`${this._baseUrl}/cards`, {
+      headers: this._headers,
+    })
+      .then(this._checkResponse)
+      ;
   }
 
   changeNameAndInfo(nameValue, infoValue) {
-    fetch('https://mesto.nomoreparties.co/v1/cohort-66/users/me', {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: {
-        authorization: this._token,
-        'Content-Type': 'application/json',
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: nameValue,
         about: infoValue,
       }),
     })
+    .then(this._checkResponse);
   }
 
   addNewCardToServer(data) {
-    fetch('https://mesto.nomoreparties.co/v1/cohort-66/cards', {
+    return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       body: JSON.stringify({
         name: data.name,
         link: data.link,
       }),
-      headers: {
-        authorization: this._token,
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
+      headers: this._headers,
     })
+      .then(this._checkResponse)
+      ;
   }
 
+  removeCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers,
+    })
+    .then(this._checkResponse);
+  }
+
+  addLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: this._headers,
+    })
+      .then(this._checkResponse)
+      ;
+  }
+
+  removeLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: 'DELETE',
+      headers: this._headers,
+    })
+      .then(this._checkResponse)
+      ;
+  }
+
+  updateAvatar(newlink) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        avatar: newlink
+      }),
+      headers: this._headers,
+    })
+      .then(this._checkResponse)
+      ;
+  }
 }

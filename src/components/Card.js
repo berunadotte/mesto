@@ -1,5 +1,12 @@
 export default class Card {
-  constructor(data, cardSelector, handleCardClick, popupDeletingCard, checkOwner, toggleLike) {
+  constructor(
+    data,
+    cardSelector,
+    handleCardClick,
+    popupDeletingCard,
+    checkOwner,
+    toggleLike
+  ) {
     this._data = data
     this._link = data.link
     this._name = data.name
@@ -22,14 +29,15 @@ export default class Card {
       this._handleCardClick(this._name, this._link)
     })
 
-    const newCardDeleteButton = this._newCard.querySelector('.card__delete-button')
+    const newCardDeleteButton = this._newCard.querySelector(
+      '.card__delete-button'
+    )
     if (this._checkOwner(this)) {
       newCardDeleteButton.addEventListener('click', () => {
         this._popupDeletingCard.open(this)
       })
-    }
-    else {
-      newCardDeleteButton.classList.add('card__delete-button_disabled');
+    } else {
+      newCardDeleteButton.classList.add('card__delete-button_disabled')
     }
 
     this._buttonLike.addEventListener('click', () => {
@@ -43,7 +51,6 @@ export default class Card {
   }
 
   createCard(userId) {
-
     this._newCardImage.src = this._link
     this._newCardImage.alt = this._name
     this._newCardLabel.textContent = this._name
@@ -57,9 +64,8 @@ export default class Card {
 
   _updateLikes(data, userId) {
     if (data.likes != undefined) {
-      this._likeCounter.textContent = data.likes.length;
-      this._isLiked = data.likes.some(like => like._id === userId);
-      // console.log (this._isLiked)
+      this._likeCounter.textContent = data.likes.length
+      this._isLiked = data.likes.some((like) => like._id === userId)
       if (this._isLiked) this._buttonLike.classList.add('card__like_active')
       else this._buttonLike.classList.remove('card__like_active')
     }

@@ -5,7 +5,6 @@ export default class UserInfo {
     this._avatarElement = document.querySelector(avatarSelector)
     this._avatarImgElement = document.querySelector(avatarImgSelector)
 
-    // Если функция обратного вызова предоставлена, примените её для события 'click'
     if (onAvatarClick) {
       this._avatarElement.addEventListener('click', onAvatarClick);
     }
@@ -24,7 +23,6 @@ export default class UserInfo {
     this._nameElement.textContent = name
     this._infoElement.textContent = info
     this._id = id
-    // console.log('userId '+this._id)
   }
 
   setUserAvatar(avatarImg){

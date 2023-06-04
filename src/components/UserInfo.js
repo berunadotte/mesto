@@ -14,7 +14,7 @@ export default class UserInfo {
     return {
       name: this._nameElement.textContent,
       info: this._infoElement.textContent,
-      id: this._id,
+      id: this.id,
       avatarImg: this._avatarImgElement.src
     }
   }
@@ -22,7 +22,7 @@ export default class UserInfo {
   setUserInfo({ name, info, id }) {
     this._nameElement.textContent = name
     this._infoElement.textContent = info
-    this._id = id
+    this.id = id
   }
 
   setUserAvatar(avatarImg){

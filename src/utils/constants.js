@@ -37,4 +37,17 @@ export const jobInput = document.querySelector(selectors.popupInputJobValue)
 export const cardTemplate = document.querySelector(selectors.cardTemplate).content
 export const buttonAddCard = document.querySelector(selectors.buttonAddCard)
 
+export const validationConfig = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.submit-button',
+  inputErrorClass: 'popup__input_type_error',
+  formSelector: '.popup__form',
+}
 
+export const apiOptions = {
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
+  headers: {
+    authorization: '432e3bdb-dcc8-4c2f-864d-6bca425811a2',
+    'Content-Type': 'application/json; charset=UTF-8',
+  },
+}

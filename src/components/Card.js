@@ -1,19 +1,12 @@
 export default class Card {
-  constructor(
-    data,
-    cardSelector,
-    handleCardClick,
-    popupDeletingCard,
-    checkOwner,
-    toggleLike
-  ) {
+  constructor(data, cardSelector, handleCardClick, popupDeletingCard, checkOwner, toggleLike) {
     this._data = data
     this._link = data.link
     this._name = data.name
     this._ownerId = data.owner._id
     this._checkOwner = checkOwner
-    this._id = data._id
-    this._isLiked = false
+    this.id = data._id
+    this.isLiked = false
     this._toggleLike = toggleLike
     this._newCard = cardSelector.querySelector('.card').cloneNode(true)
     this._newCardImage = this._newCard.querySelector('.card__image')
@@ -34,8 +27,7 @@ export default class Card {
     )
     if (this._checkOwner(this)) {
       newCardDeleteButton.addEventListener('click', () => {
-        this._popupDeletingCard.open(this)
-      })
+        this._popupDeletingCard.open(this)})
     } else {
       newCardDeleteButton.classList.add('card__delete-button_disabled')
     }
@@ -56,17 +48,16 @@ export default class Card {
     this._newCardLabel.textContent = this._name
 
     this._setEventListeners()
-
-    this._updateLikes(this._data, userId)
+    this.updateLikes(this._data, userId)
 
     return this._newCard
   }
 
-  _updateLikes(data, userId) {
-    if (data.likes != undefined) {
+  updateLikes(data, userId) {
+    if (data.likes !== undefined) {
       this._likeCounter.textContent = data.likes.length
-      this._isLiked = data.likes.some((like) => like._id === userId)
-      if (this._isLiked) this._buttonLike.classList.add('card__like_active')
+      this.isLiked = data.likes.some((like) => like._id === userId)
+      if (this.isLiked) this._buttonLike.classList.add('card__like_active')
       else this._buttonLike.classList.remove('card__like_active')
     }
   }

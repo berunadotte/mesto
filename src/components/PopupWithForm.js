@@ -31,15 +31,15 @@ export default class PopupWithForm extends Popup {
     this._form.reset()
   }
 
-  setEventListeners() {
+  setEventListeners(kak) {
     super.setEventListeners()
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault()
       const submitButton = this._form.querySelector('.submit-button')
       const originalButtonText = submitButton.textContent
       submitButton.textContent = 'Сохранение...'
-      this._formSubmitHandler(this._getInputValues())
-      .finally(() => {
+  
+      this._formSubmitHandler(this._getInputValues(), () => {
         submitButton.textContent = originalButtonText
       })
     })

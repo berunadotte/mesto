@@ -7,6 +7,8 @@ import {
   cardTemplate,
   buttonAddCard,
   selectors,
+  validationConfig,
+  apiOptions,
 } from '../utils/constants.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import PopupWithImage from '../components/PopupWithImage.js'
@@ -30,30 +32,32 @@ function createCard(cardData) {
   const newCard = new Card(
     cardData,
     cardTemplate,
-    (name, link) => {popupWithImage.open(link, name)},
+    (name, link) => 
+    { popupWithImage.open(link, name)},
     popupDeletingCard,
-    (card) => {return userInfo._id == card._ownerId},
-    (card) => {if (card._isLiked)
+    (card) => { return userInfo.id === card._ownerId},
+    (card) => {
+      if (card.isLiked)
         yandexApi
-          .removeLike(card._id)
+          .removeLike(card.id)
           .then((data) => {
-            card._updateLikes(data, userInfo._id)
+            card.updateLikes(data, userInfo.id)
           })
           .catch((err) => {
             console.log(err)
           })
       else
         yandexApi
-          .addLike(card._id)
+          .addLike(card.id)
           .then((data) => {
-            card._updateLikes(data, userInfo._id)
+            card.updateLikes(data, userInfo.id)
           })
           .catch((err) => {
             console.log(err)
           })
     }
   )
-  const cardElement = newCard.createCard(userInfo._id)
+  const cardElement = newCard.createCard(userInfo.id)
   return cardElement
 }
 
@@ -78,20 +82,21 @@ const openEditProfile = () => {
 
 profileEditButton.addEventListener('click', openEditProfile)
 
-const popupProfile = new PopupWithForm(selectors.popupEditProfile, (data) => {
+const popupProfile = new PopupWithForm(selectors.popupEditProfile, (data, callback) => {
   userInfo.setUserInfo({
     name: data.name,
     info: data.job,
   })
-  yandexApi.changeNameAndInfo(data.name, data.job)
 
   return yandexApi
     .changeNameAndInfo(data.name, data.job)
     .then((result) => {
       popupProfile.close()
+      callback()
     })
     .catch((err) => {
       console.log(err)
+      callback()
     })
 })
 popupProfile.setEventListeners()
@@ -99,16 +104,18 @@ popupProfile.setEventListeners()
 const popupWithImage = new PopupWithImage(selectors.popupImage)
 popupWithImage.setEventListeners()
 
-const popupAddCard = new PopupWithForm(selectors.popupNewCard, (data) => {
+const popupAddCard = new PopupWithForm(selectors.popupNewCard, (data, callback) => {
   return yandexApi
     .addNewCardToServer(data)
     .then((createdCard) => {
       const newCard = createCard(createdCard)
       cardSection.addItemToStart(newCard)
       popupAddCard.close()
+      callback()
     })
     .catch((err) => {
       console.log(err)
+      callback()
     })
 })
 popupAddCard.setEventListeners()
@@ -118,35 +125,32 @@ buttonAddCard.addEventListener('click', () => {
   formValidators[selectors.popupFormNewCard].resetValidation()
 })
 
-const config = {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.submit-button',
-  inputErrorClass: 'popup__input_type_error',
-  formSelector: '.popup__form',
-}
-
 const formValidators = {}
 
 const popupUpdateAvatar = new PopupWithForm(
   selectors.popupUpdateAvatar,
-  (data) => {
+  (data, callback) => {
     return yandexApi
       .updateAvatar(data.link)
       .then(() => {
         userInfo.setUserAvatar(data.link)
         popupUpdateAvatar.close()
+      callback()
       })
       .catch((err) => {
         console.log(err)
+      callback()
       })
   }
 )
 popupUpdateAvatar.setEventListeners()
 
 function enableFormValidation() {
-  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  const formList = Array.from(
+    document.querySelectorAll(validationConfig.formSelector)
+  )
   formList.forEach((formElement) => {
-    const validator = new FormValidator(config, formElement)
+    const validator = new FormValidator(validationConfig, formElement)
     const formName = formElement.getAttribute('name')
     formValidators[formName] = validator
     validator.enableValidation()
@@ -155,43 +159,36 @@ function enableFormValidation() {
 
 enableFormValidation()
 
-const options = {
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
-  headers: {
-    authorization: '432e3bdb-dcc8-4c2f-864d-6bca425811a2',
-    'Content-Type': 'application/json; charset=UTF-8',
-  },
-}
-const yandexApi = new Api(options)
+const yandexApi = new Api(apiOptions)
 
-yandexApi
-  .loadNameAndInfo()
-  .then((result) => {
-    const name = result.name
-    const info = result.about
-    const id = result._id
-    const avatar = result.avatar
-    userInfo.setUserInfo({ name, info, id })
-    userInfo.setUserAvatar(avatar)
-  })
-  .catch((err) => {
-    console.log(err)
-  })
+Promise.all([
+  yandexApi.loadNameAndInfo(),
+  yandexApi.getInitialCards()
+])
+.then((values) => {
+  const name = values[0].name
+  const info = values[0].about
+  const id = values[0]._id
+  const avatar = values[0].avatar
+  userInfo.setUserInfo({ name, info, id })
+  userInfo.setUserAvatar(avatar)
 
-yandexApi
-  .getInitialCards()
-  .then((arrCards) => {
-    cardSection.renderItems(arrCards)
-  })
-  .catch((err) => {
-    console.log(err)
-  })
+  cardSection.renderItems(values[1])
+})
+.catch((err) => {
+  console.log(err)
+})
 
 const popupDeletingCard = new PopupConfirmationDelete(
   selectors.popupDeletingCard,
   (card) => {
-    yandexApi.removeCard(card._id)
-    card._removeCard()
+    yandexApi.removeCard(card.id)
+    .then(card._removeCard())
+    .then(popupDeletingCard.close())
+    .catch((err) => {
+      console.log(err)
+    })
   }
 )
+
 popupDeletingCard.setEventListeners()

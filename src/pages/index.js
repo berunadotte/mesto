@@ -63,7 +63,6 @@ const userInfo = new UserInfo({
   avatarSelector: selectors.profileAvatar,
   avatarImgSelector: selectors.profileAvatarImg,
   onAvatarClick: () => {
-    console.log(1234)
     popupUpdateAvatar.open()
     formValidators[selectors.popupFormUpdateAvatar].resetValidation()
   },

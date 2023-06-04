@@ -24,9 +24,9 @@ export const selectors = {
   popupFormEditProfile: 'popup__form_edit-profile',
   popupFormNewCard: 'popup__form_new-card',
   popupImage: '.popup_image',
-  popupDeletingCard: '.popup__before-deleting',
-  popupUpdateAvatar: '.popup__update-avatar',
-  popupFormUpdateAvatar: 'popup__update-avatar_form',
+  popupDeletingCard: '.popup__before_deleting',
+  popupUpdateAvatar: '.popup__update_avatar',
+  popupFormUpdateAvatar: 'popup__update_avatar_form',
   profileAvatar: '.profile__avatar',
   profileAvatarImg: '.profile__avatar-img',
 }

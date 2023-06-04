@@ -26,7 +26,7 @@ export const selectors = {
   popupImage: '.popup_image',
   popupDeletingCard: '.popup_before_deleting',
   popupUpdateAvatar: '.popup_update_avatar',
-  popupFormUpdateAvatar: 'popup_update_avatar__form',
+  popupFormUpdateAvatar: 'update_avatar_form',
   profileAvatar: '.profile__avatar',
   profileAvatarImg: '.profile__avatar-img',
 }
